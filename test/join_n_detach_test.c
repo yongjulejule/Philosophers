@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 13:42:52 by yongjule          #+#    #+#             */
-/*   Updated: 2021/10/13 16:50:38 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/10/13 17:38:44 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,20 @@ int	main(void)
 	errno = err;
 	printf("errno is %d\n", errno);
 	if (err)
-		perror("!!!!!!test!!!!!!!!!!");
+		perror("!!!!!!ERROR!!!!!!!!!");
 	sleep(1);
 	printf("parent starting second thread\n");
 	err = pthread_create(&tid_2, NULL, thr_fn2, NULL);
 	if (!err)
 		strerror(err);
+	printf("after pthread create, its status is %d\n", err);
+	err = pthread_detach(tid_2);
+	if (!err)
+		strerror(err);
+	printf("after pthread detach, its status is %d\n", err);
+	err = pthread_join(tid_2, (void *)&fp);
+	printf("after pthread join, its status is (should be error!) %d\n", err);
+	perror(strerror(err));
 	sleep(1);
 	printfoo("parent : \n", fp);
 	return (EXIT_SUCCESS);
