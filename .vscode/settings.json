@@ -1,0 +1,9 @@
+{
+	"files.associations": {
+		"pthread.h": "c",
+		"availability.h": "c",
+		"unistd.h": "c",
+		"_pthread_types.h": "c",
+		"pthread_test.h": "c"
+	}
+}
