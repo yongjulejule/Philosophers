@@ -22,4 +22,17 @@
             "cwd": "${workspaceFolder}",
             "preLaunchTask": "Use Makefile Leaks",
         },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "testing",
+            "program": "${workspaceFolder}/test/a.out",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+			"initCommands": [
+				"command script import ${workspaceRoot}/test/debugvis.py" // <<<<< This is the important bit
+			],
+            "preLaunchTask": "To test",
+        },
     ]
+}

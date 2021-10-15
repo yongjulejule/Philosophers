@@ -43,6 +43,25 @@
                 "isDefault": true
             },
         },
+        {
+            "type": "shell",
+            "label": "To test",
+            "command": "gcc",
+            "args": [
+                "-g",
+                "mutex_test.c",
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/test"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+        },
     ],
     "presentation": {
         "panel" : "new"
