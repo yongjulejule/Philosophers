@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   join_structure_test.c                              :+:      :+:    :+:   */
+/*   join_n_detach_test.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 13:42:52 by yongjule          #+#    #+#             */
-/*   Updated: 2021/10/13 17:38:44 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/10/14 10:40:42 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,33 +47,30 @@ int	main(void)
 	pthread_t	tid_2;
 	struct foo	*fp;
 	
-	strerror(0);
 	err = pthread_create(&tid_1, NULL, thr_fn1, NULL);
 	if (!err)
-		strerror(err);
+		perror(strerror(err));
 	printf("before join 1 fp is %p\n", fp);
 	err = pthread_join(tid_1, (void *)&fp);
 	printf("err is %d\n", err);
 	if (!err)
-		strerror(err);
+		perror(strerror(err));
 	printf("before join 2 fp is %p\n", fp);
 	fp = NULL;
 	printf("after join and init fp is %p\n", fp);
 	err = pthread_join(tid_1, (void *)&fp);
 	printf("before join 3 fp is %p\n", fp);
-	errno = err;
-	printf("errno is %d\n", errno);
 	if (err)
-		perror("!!!!!!ERROR!!!!!!!!!");
+		perror(strerror(err));
 	sleep(1);
 	printf("parent starting second thread\n");
 	err = pthread_create(&tid_2, NULL, thr_fn2, NULL);
 	if (!err)
-		strerror(err);
+		perror(strerror(err));
 	printf("after pthread create, its status is %d\n", err);
 	err = pthread_detach(tid_2);
 	if (!err)
-		strerror(err);
+		perror(strerror(err));
 	printf("after pthread detach, its status is %d\n", err);
 	err = pthread_join(tid_2, (void *)&fp);
 	printf("after pthread join, its status is (should be error!) %d\n", err);
