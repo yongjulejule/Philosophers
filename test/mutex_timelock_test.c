@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 19:19:35 by yongjule          #+#    #+#             */
-/*   Updated: 2021/10/15 21:29:48 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/10/17 08:51:58 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(void)
 
 	pthread_mutex_lock(&lock);
 	printf("mutex is locked");
-	clock_gettime(CLOCK_REALTIME, &toRt);
+	clock_gettime(CLOCK_REALTIME, &tout);
 	tmp = localtime(&tout.tv_sec);
 	strftime(buf, sizeof(buf), "%r", tmp);
 	printf("current time is %s\n", buf);
