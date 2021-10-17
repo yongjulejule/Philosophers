@@ -5,6 +5,8 @@
 		"unistd.h": "c",
 		"_pthread_types.h": "c",
 		"pthread_test.h": "c",
-		"__config": "cpp"
+		"__config": "cpp",
+		"limits.h": "c",
+		"_pthread_cond_t.h": "c"
 	}
 }

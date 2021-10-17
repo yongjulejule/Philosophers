@@ -49,7 +49,7 @@
             "command": "gcc",
             "args": [
                 "-g",
-                "mutex_test.c",
+                "${file}",
             ],
             "options": {
                 "cwd": "${workspaceFolder}/test"
@@ -63,6 +63,17 @@
             },
         },
     ],
+	"inputs": [
+		{
+			"id": "filename",
+			"description": "get filename as param",
+			"default": "none",
+			"type": "pickString",
+			"options": [
+				"${workspaceFolder}/test/*",
+			]
+		}
+	],
     "presentation": {
         "panel" : "new"
     }
