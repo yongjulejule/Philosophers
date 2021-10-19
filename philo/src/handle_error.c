@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 13:06:10 by yongjule          #+#    #+#             */
-/*   Updated: 2021/10/19 13:29:44 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/10/19 17:40:53 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,4 @@ int	is_err(char *err_msg, int fd, int exit_status)
 	write(fd, err_msg, ft_strlen(err_msg));
 	write(fd, "\n", 1);
 	return (exit_status);
-}
-
-int	check_arg_validity(int argc, char **argv)
-{
-	if (argc < 5 || argc > 6)
-		return (is_err("Too many arguments", STDERR_FILENO, FAIL));
 }
