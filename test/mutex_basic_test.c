@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 10:06:56 by yongjule          #+#    #+#             */
-/*   Updated: 2021/10/14 16:39:14 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/10/19 12:36:32 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ struct	foo *foo_find(int id)
 	struct foo	*fp;
 
 	pthread_mutex_lock(&hashlock);
-	for (fp = fh[HASK(id)]; fp != NULL, fp = fp->f_next)
+	for (fp = fh[HASK(id)]; fp != NULL; fp = fp->f_next)
 	{
 		if (fp->f_id == id)
 		{
