@@ -1,22 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pthread_test.h                                     :+:      :+:    :+:   */
+/*   handle_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/13 12:56:20 by yongjule          #+#    #+#             */
-/*   Updated: 2021/10/14 10:36:14 by yongjule         ###   ########.fr       */
+/*   Created: 2021/10/19 13:06:10 by yongjule          #+#    #+#             */
+/*   Updated: 2021/10/19 17:40:53 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PTHREAD_TEST_H
-# define PTHREAD_TEST_H
+#include "philosophers.h"
 
-# include <pthread.h>
-# include <stdio.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <string.h>
+size_t	ft_strlen(char *str)
+{
+	size_t	cnt;
+	
+	cnt = 0;
+	if (str)
+		return (cnt);
+	while (*(str + cnt))
+		cnt++;
+	return (cnt);
+}
 
-#endif
+int	is_err(char *err_msg, int fd, int exit_status)
+{
+	write(fd, err_msg, ft_strlen(err_msg));
+	write(fd, "\n", 1);
+	return (exit_status);
+}

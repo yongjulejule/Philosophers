@@ -6,19 +6,19 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 10:29:43 by yongjule          #+#    #+#             */
-/*   Updated: 2021/10/13 12:57:16 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/10/16 09:01:01 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pthread_test.h"
 
-pthread_t ntid;
+pthread_t	ntid;
 
 void	printids(const char *s)
 {
-	pid_t	pid;
+	pid_t		pid;
 	pthread_t	tid;
-	
+
 	pid = getpid();
 	tid = pthread_self();
 	ntid = pthread_self();
@@ -34,7 +34,7 @@ void	*thr_fn(void *arg)
 int	main(void)
 {
 	int			err;
-	
+
 	err = pthread_create(&ntid, NULL, thr_fn, NULL);
 	printf("first created thread id : %lu\n", (unsigned long)ntid);
 	if (err != 0)

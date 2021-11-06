@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pthread_test.h                                     :+:      :+:    :+:   */
+/*   test_casting.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/13 12:56:20 by yongjule          #+#    #+#             */
-/*   Updated: 2021/10/14 10:36:14 by yongjule         ###   ########.fr       */
+/*   Created: 2021/10/19 13:32:00 by yongjule          #+#    #+#             */
+/*   Updated: 2021/10/19 13:36:41 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PTHREAD_TEST_H
-# define PTHREAD_TEST_H
+#include <stdio.h>
 
-# include <pthread.h>
-# include <stdio.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <string.h>
-
-#endif
+int main()
+{
+	int64_t a = 1;
+	
+	printf("before shift: %lld, after shift: %lld\n", a, a << 33);
+	a <<= 33;
+	printf("before casting: %lld, after casting: %u\n", a, (unsigned int)a);
+}
