@@ -9,13 +9,18 @@
             "request": "launch",
             "name": "Debug",
             "program": "${workspaceFolder}/philo/philo",
-            "args": [],
+            "args": [
+				"${input:argv[0]}",
+				"${input:argv[1]}",
+				"${input:argv[2]}",
+				"${input:argv[3]}",
+				// "${input:argv[4]}",
+			],
             "cwd": "${workspaceFolder}",
             "preLaunchTask": "Use Makefile Debug"
         },
         {
-            "type": "lldb",
-            "request": "launch",
+            "type": "lldb", "request": "launch",
             "name": "leak check",
             "program": "${workspaceFolder}/philo",
             "args": [],
@@ -34,5 +39,37 @@
 			],
             "preLaunchTask": "To test",
         },
-    ]
+    ],
+	"inputs": [
+		{
+			"id": "argv[0]",
+			"description": "put argv[0]",
+			"default": "5",
+			"type": "promptString",
+		},
+		{
+			"id": "argv[1]",
+			"description": "put argv[0]",
+			"default": "200",
+			"type": "promptString",
+		},
+		{
+			"id": "argv[2]",
+			"description": "put argv[0]",
+			"default": "200",
+			"type": "promptString",
+		},
+		{
+			"id": "argv[3]",
+			"description": "put argv[0]",
+			"default": "200",
+			"type": "promptString",
+		},
+		{
+			"id": "argv[4]",
+			"description": "put argv[4]",
+			"default": "",
+			"type": "promptString",
+		}
+	],
 }

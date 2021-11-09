@@ -5,6 +5,25 @@
     "tasks": [
         {
             "type": "shell",
+            "label": "Use Makefile",
+            "command": "make",
+            "args": [
+                "-j",
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/philo"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "Compile"
+        },
+        {
+            "type": "shell",
             "label": "Use Makefile Debug",
             "command": "make",
             "args": [
@@ -74,7 +93,4 @@
 			]
 		}
 	],
-    "presentation": {
-        "panel" : "new"
-    }
 }
