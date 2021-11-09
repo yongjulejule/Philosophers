@@ -6,13 +6,13 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 15:32:06 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/09 19:09:31 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/10 08:55:19 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	*ft_alloc(int count, int size, int c)
+void	*ft_alloc(size_t count, size_t size, int c)
 {
 	void	*tmp;
 

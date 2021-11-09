@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 16:43:47 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/09 19:15:08 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/10 08:54:47 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ int	*get_philo_life(int argc, char **argv)
 			is_err("Arguments is out of range", STDERR_FILENO, 0);
 			return (NULL);
 		}
-		printf("life_cycle[%d] is [%d]\n", idx, life_cycle[idx]);
 		idx++;
 	}
 	return (life_cycle);

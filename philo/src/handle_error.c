@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 13:06:10 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/09 16:09:05 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/10 08:53:23 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ size_t	ft_strlen(char *str)
 	size_t	cnt;
 
 	cnt = 0;
-	if (str)
+	if (!str)
 		return (cnt);
 	while (*(str + cnt))
 		cnt++;
