@@ -6,7 +6,7 @@
 #    By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/12 20:27:28 by yongjule          #+#    #+#              #
-#    Updated: 2021/10/12 20:47:28 by yongjule         ###   ########.fr        #
+#    Updated: 2021/11/09 17:31:05 by yongjule         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,11 @@ SRCS_DIR		=	src/
 INC_DIR			=	include/
 
 SRCS			=	$(addprefix $(SRCS_DIR), \
+					check_validity.c\
+					ft_utils.c\
+					get_philo_life.c\
+					handle_error.c\
+					main.c\
 				)
 
 OBJS			=	${SRCS:%.c=%.o}

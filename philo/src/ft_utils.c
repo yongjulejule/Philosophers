@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 15:32:06 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/09 15:32:25 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/09 16:44:20 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,4 @@ void	*ft_alloc(int count, int size, int c)
 		return (NULL);
 	memset(tmp, c, count * size);
 	return (tmp);
-}
-
-int	ft_atoui(char *str)
-{
-	long long	nbr;
-
-	if (!str)
-		return (ERR);
-	nbr = 0;
-	while (*str >= '0' && *str <= '9')
-	{
-		nbr += *str;
-		if (nbr > INT_MAX)
-			return (ERR);
-		nbr *= 10;
-		str++;
-	}
-	return (nbr);
 }
