@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 12:38:17 by yongjule          #+#    #+#             */
-/*   Updated: 2021/10/19 17:43:51 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/09 15:14:49 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <unistd.h>
 
 # define ERR -1
+# define INT_MAX 2147483647
 
 typedef enum e_bool
 {
@@ -39,5 +40,7 @@ typedef struct s_life
 
 int		is_err(char *err_msg, int fd, int exit_status);
 size_t	ft_strlen(char *str);
+t_bool	is_digitstr(char *str);
+t_bool	check_arg_validity(int argc, char **argv);
 
 #endif

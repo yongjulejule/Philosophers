@@ -9,5 +9,6 @@
 		"limits.h": "c",
 		"_pthread_cond_t.h": "c",
 		"philosophers.h": "c"
-	}
+	},
+	"C_Cpp.errorSquiggles": "Enabled"
 }
