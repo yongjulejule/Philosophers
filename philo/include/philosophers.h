@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 12:38:17 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/09 17:11:27 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/10 09:00:27 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int		is_err(char *err_msg, int fd, int exit_status);
 size_t	ft_strlen(char *str);
 t_bool	is_digitstr(char *str);
 t_bool	check_arg_validity(int argc, char **argv);
-void	*ft_alloc(int count, int size, int c);
+void	*ft_alloc(size_t count, size_t size, int c);
 int		*get_philo_life(int argc, char **argv);
 
 #endif
