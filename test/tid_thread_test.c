@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 10:29:43 by yongjule          #+#    #+#             */
-/*   Updated: 2021/10/16 09:01:01 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/10 11:14:18 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,11 @@ int	main(void)
 	err = pthread_create(&ntid, NULL, thr_fn, NULL);
 	printf("first created thread id : %lu\n", (unsigned long)ntid);
 	if (err != 0)
-		strerror(err);
+		printf("%s\n", strerror(err));
 	err = pthread_create(&ntid, NULL, thr_fn, NULL);
 	printf("secound created thread id : %lu\n", (unsigned long)ntid);
 	if (err != 0)
-		strerror(err);
+		printf("%s\n", strerror(err));
 	printids("main thread : ");
 	printf("ntid in main is : %lu\n", (unsigned long)ntid);
 	sleep (1);

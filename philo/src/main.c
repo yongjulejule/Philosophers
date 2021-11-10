@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 12:37:06 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/09 19:12:18 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/10 09:19:01 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 int	main(int argc, char **argv)
 {
-	int	*life_cycle;
+	int	*philo_life;
 
 	if (!check_arg_validity(argc, argv))
 		return (is_err("Invalid Arguments", STDERR_FILENO, EXIT_FAILURE));
-	life_cycle = get_philo_life(argc, argv);
-	if (life_cycle == NULL)
+	philo_life = get_philo_life(argc, argv);
+	if (philo_life == NULL)
 		return (EXIT_FAILURE);
 }

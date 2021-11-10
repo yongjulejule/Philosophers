@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 12:38:17 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/10 09:00:27 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/10 09:14:39 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ typedef enum e_bool
 	true,
 }	t_bool;
 
-typedef struct s_life
+typedef enum e_life
 {
-	int	number_of_philosopers;
-	int	time_to_die;
-	int	time_to_eat;
-	int	time_to_sleep;
-	int	number_of_times_each_philosoper_must_eat;
+	number_of_philosopers,
+	time_to_die,
+	time_to_eat,
+	time_to_sleep,
+	number_of_times_each_philosoper_must_eat,
 }	t_life;
 
 int		is_err(char *err_msg, int fd, int exit_status);

@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 16:43:47 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/10 08:54:47 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/10 09:18:49 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,27 @@ static int	ft_atoui(char *str)
 
 int	*get_philo_life(int argc, char **argv)
 {
-	int	*life_cycle;
+	int	*philo_life;
 	int	idx;
 
 	idx = 0;
-	life_cycle = ft_alloc(5, sizeof(int), -1);
-	if (!life_cycle)
+	philo_life = ft_alloc(5, sizeof(int), -1);
+	if (!philo_life)
 		return (NULL);
 	while (idx < argc - 1)
 	{
-		life_cycle[idx] = ft_atoui(argv[idx + 1]);
-		if (life_cycle[idx] == ERR)
+		philo_life[idx] = ft_atoui(argv[idx + 1]);
+		if (philo_life[idx] == ERR)
 		{
 			is_err("Arguments is out of range", STDERR_FILENO, 0);
 			return (NULL);
 		}
 		idx++;
 	}
-	return (life_cycle);
+	if (philo_life[number_of_philosopers] == 0)
+	{
+		is_err("At least one Philosopher need", STDERR_FILENO, 0);
+		return (NULL);
+	}
+	return (philo_life);
 }
