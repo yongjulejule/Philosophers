@@ -6,13 +6,13 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 15:13:57 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/09 17:58:11 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/11 12:58:36 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-t_bool	is_digitstr(char *str)
+static t_bool	is_digitstr(char *str)
 {
 	if (!str)
 		return (false);
