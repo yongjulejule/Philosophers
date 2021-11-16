@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 12:38:17 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/16 15:29:36 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/16 17:47:02 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,12 @@ typedef enum e_life
 	time_to_sleep,
 	number_of_times_each_philosoper_must_eat,
 }	t_life;
+
+typedef struct s_table
+{
+	int	*philo_life;
+	int	*forks;
+}	t_table;
 
 int		is_err(char *err_msg, int fd, int exit_status);
 size_t	ft_strlen(char *str);
