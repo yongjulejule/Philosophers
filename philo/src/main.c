@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 12:37:06 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/16 21:17:18 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/16 21:25:14 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,12 @@ void	*born_philo(void *arg)
 	/* FIXME: DO WE NEED HADNLE ERROR? */
 	table = (t_table *)arg;
 	gettimeofday(&tp, NULL);
-	printf("current time is %d\n", tp.tv_usec);
 	printf("philosopher %d is born!\n", table->philo_nbr);
 	printf("time gap is %d\n", get_time_gap(tp.tv_usec));
+	go_to_eat();
+	go_to_sleep();
+	go_to_thinking();
+	dead();
 	return (arg);
 }
 
