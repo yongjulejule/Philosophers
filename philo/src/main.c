@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 12:37:06 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/11 14:56:04 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/16 15:28:27 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_bool	gen_philo_main(int *philo_life)
 		err = pthread_create(&tid[idx], NULL, born_philo, NULL);
 		if (err)
 		{
-			fprintf(stderr, "%s\n", strerror(err));
+			ft_print_syserr(err, EXIT_FAILURE);
 			free(tid);
 			return (false);
 		}
@@ -56,7 +56,6 @@ int	main(int argc, char **argv)
 	if (philo_life == NULL)
 		return (EXIT_FAILURE);
 	if (!gen_philo_main(philo_life))
-	/* TODO : Free before exiting? DONT NEED */
 		return (EXIT_FAILURE);
 	usleep(10);
 	return (EXIT_SUCCESS);

@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 15:32:06 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/10 08:55:19 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/16 15:26:50 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	*ft_alloc(size_t count, size_t size, int c)
 	tmp = malloc(count * size);
 	if (!tmp)
 	{
-		is_err("Cannnot allocate memory", STDERR_FILENO, EXIT_FAILURE);
+		ft_print_syserr(ENOMEM, EXIT_FAILURE);
 		return (NULL);
 	}
 	memset(tmp, c, count * size);

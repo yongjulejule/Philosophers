@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 12:38:17 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/11 13:37:49 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/16 15:29:36 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,19 @@
 # include <pthread.h>
 # include <unistd.h>
 
-# define ERR -1
 # define INT_MAX 2147483647
+# define ERR -1
+
+/* System Errno */
+
+# define EAGAIN 35
+# define EPERM 1
+# define EINVAL 22
+# define ESRCH 3
+# define EDEADLK 11
+# define EFAULT 11
+# define ENOMEM 12
+# define EBUSY 16
 
 typedef enum e_bool
 {
@@ -43,5 +54,6 @@ size_t	ft_strlen(char *str);
 t_bool	check_arg_validity(int argc, char **argv);
 void	*ft_alloc(size_t count, size_t size, int c);
 int		*get_philo_life(int argc, char **argv);
+int		ft_print_syserr(int err_nbr, int exit_status);
 
 #endif
