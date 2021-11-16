@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 12:38:17 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/16 17:47:02 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/16 20:52:46 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef enum e_life
 
 typedef struct s_table
 {
+	int	philo_nbr;
 	int	*philo_life;
 	int	*forks;
 }	t_table;

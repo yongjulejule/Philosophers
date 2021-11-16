@@ -6,41 +6,52 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 12:37:06 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/16 17:54:11 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/16 21:17:18 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
+suseconds_t	get_time_gap(suseconds_t origin)
+{
+	struct timeval	tp;
+
+	gettimeofday(&tp, NULL);
+	return (tp.tv_usec - origin);
+}
+
 void	*born_philo(void *arg)
 {
-	static int	philo_nbr = 1;
+	t_table			*table;
+	struct timeval	tp;
 
-	printf("Philosopher %d is born!\n", philo_nbr);
-	philo_nbr++;
+	/* FIXME: DO WE NEED HADNLE ERROR? */
+	table = (t_table *)arg;
+	gettimeofday(&tp, NULL);
+	printf("current time is %d\n", tp.tv_usec);
+	printf("philosopher %d is born!\n", table->philo_nbr);
+	printf("time gap is %d\n", get_time_gap(tp.tv_usec));
 	return (arg);
 }
 
 t_bool	gen_philo_main(t_table table)
 {
-	int			idx;
 	int			err;
 	pthread_t	*tid;
 
 	tid = ft_alloc(table.philo_life[number_of_philosopers], sizeof(int), 0);
 	if (!tid)
 		return (false);
-	idx = 0;
-	while (idx < table.philo_life[number_of_philosopers])
+	while (table.philo_nbr < table.philo_life[number_of_philosopers])
 	{
-		err = pthread_create(&tid[idx], NULL, born_philo, &table);
+		err = pthread_create(&tid[table.philo_nbr], NULL, born_philo, &table);
 		if (err)
 		{
 			ft_print_syserr(err, EXIT_FAILURE);
 			free(tid);
 			return (false);
 		}
-		idx++;
+		table.philo_nbr++;
 	}
 	table.forks[0] = 1;
 	return (true);
@@ -59,6 +70,7 @@ t_bool	get_info(int argc, char *argv[], t_table *table)
 		return (false);
 	table->philo_life = philo_life;
 	table->forks = forks;
+	table->philo_nbr = 0;
 	return (true);
 }
 

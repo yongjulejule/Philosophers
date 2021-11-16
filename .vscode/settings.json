@@ -8,7 +8,10 @@
 		"__config": "cpp",
 		"limits.h": "c",
 		"_pthread_cond_t.h": "c",
-		"philosophers.h": "c"
+		"philosophers.h": "c",
+		"time.h": "c",
+		"_time_t.h": "c",
+		"_suseconds_t.h": "c"
 	},
 	"C_Cpp.errorSquiggles": "Enabled"
 }
