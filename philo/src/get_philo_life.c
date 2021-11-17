@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 16:43:47 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/17 09:31:59 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/17 17:06:36 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,19 +56,61 @@ static int	*get_philo_life(int argc, char **argv)
 	return (philo_life);
 }
 
-t_bool	get_info(int argc, char *argv[], t_table *table)
+static t_table	*get_table_info(int *philo_life, int *forks)
 {
-	int	*philo_life;
-	int	*forks;
+	t_table	*table;
+
+	table = ft_alloc(1, sizeof(t_table), 0);
+	if (!table)
+		return (NULL);
+	table->philo_life = philo_life;
+	table->forks = forks;
+	return (table);
+}
+
+static t_philo	*get_philo_data(t_table *table)
+{
+	t_philo	*philo;
+	int		err;
+	int		idx;
+
+	philo = ft_alloc(table->philo_life[number_of_philosopers],
+			sizeof(t_philo), 0);
+	if (!philo)
+		return (NULL);
+	idx = 0;
+	while (idx < table->philo_life[number_of_philosopers])
+	{
+		philo[idx].ph_idx = idx + 1;
+		philo[idx].table = table;
+		err = pthread_mutex_init(&(philo[idx].mutex), NULL);
+		if (err)
+		{
+			ft_print_syserr(err, false);
+			return (NULL);
+		}
+		idx++;
+	}
+	return (philo);
+}
+
+t_bool	get_info(int argc, char *argv[], t_philo **philo)
+{
+	int		*philo_life;
+	int		*forks;
+	t_table	*table;
 
 	philo_life = get_philo_life(argc, argv);
 	if (philo_life == NULL)
 		return (false);
-	forks = ft_alloc(philo_life[number_of_philosopers] + 1, sizeof(int), 0);
+	forks = ft_alloc(philo_life[number_of_philosopers], sizeof(int), 0);
 	if (!forks)
 		return (false);
-	table->philo_life = philo_life;
-	table->forks = forks;
-	table->philo_nbr = 0;
+	table = get_table_info(philo_life, forks);
+	if (!table)
+		return (false);
+	*philo = get_philo_data(table);
+	if (!*philo)
+		return (false);
 	return (true);
 }

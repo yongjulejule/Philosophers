@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 12:38:17 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/17 09:35:23 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/17 17:07:50 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,29 +53,40 @@ typedef enum e_life
 
 typedef struct s_table
 {
-	int	philo_nbr;
-	int	*philo_life;
-	int	*forks;
+	suseconds_t		clock;
+	int				*philo_life;
+	int				*forks;
 }	t_table;
+
+typedef struct s_philo
+{
+	int				ph_idx;
+	t_table			*table;
+	pthread_mutex_t	mutex;
+}	t_philo;
 
 /* FUNCTIONS */
 /* Check Validity */
 
-t_bool	check_arg_validity(int argc, char **argv);
+t_bool		check_arg_validity(int argc, char **argv);
 
 /* Get Information */
 
-t_bool	get_info(int argc, char *argv[], t_table *table);
+t_bool		get_info(int argc, char *argv[], t_philo **philo);
 
-/* Generate Philosophers */
+/* Philosopher life */
 
-t_bool	gen_philo_main(t_table table);
+t_bool		gen_philo_main(t_philo *philo);
+t_bool		go_to_eat(t_philo *philo, const suseconds_t origin);
+t_bool		go_to_sleep(t_philo *philo, const suseconds_t origin);
+t_bool		go_to_thinking(t_philo *philo, const suseconds_t origin);
+suseconds_t	get_time_gap(const suseconds_t origin);
 
 /* Utils */
 
-int		is_err(char *err_msg, int fd, int exit_status);
-size_t	ft_strlen(char *str);
-void	*ft_alloc(size_t count, size_t size, int c);
-int		ft_print_syserr(int err_nbr, int exit_status);
+int			is_err(char *err_msg, int fd, int exit_status);
+size_t		ft_strlen(char *str);
+void		*ft_alloc(size_t count, size_t size, int c);
+int			ft_print_syserr(int err_nbr, int exit_status);
 
 #endif

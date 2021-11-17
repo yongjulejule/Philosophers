@@ -6,23 +6,11 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 13:06:10 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/16 15:38:21 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/17 09:49:48 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-
-size_t	ft_strlen(char *str)
-{
-	size_t	cnt;
-
-	cnt = 0;
-	if (!str)
-		return (cnt);
-	while (*(str + cnt))
-		cnt++;
-	return (cnt);
-}
 
 int	ft_print_syserr(int err_nbr, int exit_status)
 {

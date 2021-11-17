@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 15:32:06 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/16 15:26:50 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/17 09:49:51 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,16 @@ void	*ft_alloc(size_t count, size_t size, int c)
 	}
 	memset(tmp, c, count * size);
 	return (tmp);
+}
+
+size_t	ft_strlen(char *str)
+{
+	size_t	cnt;
+
+	cnt = 0;
+	if (!str)
+		return (cnt);
+	while (*(str + cnt))
+		cnt++;
+	return (cnt);
 }
