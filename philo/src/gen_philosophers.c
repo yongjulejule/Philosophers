@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 09:32:43 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/17 20:12:37 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/17 20:44:26 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	*born_philo(void *arg)
 	{
 		if (!go_to_eat(philo, philo->table->clock))
 		{
-			is_err("system err (for test!)", STDERR_FILENO, EXIT_FAILURE);
+			is_err("system err (to test!)", STDERR_FILENO, EXIT_FAILURE);
 			return (NULL);
 		}
 	}
