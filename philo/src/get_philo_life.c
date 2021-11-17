@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 16:43:47 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/10 09:18:49 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/17 09:31:59 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	ft_atoui(char *str)
 	return (nbr);
 }
 
-int	*get_philo_life(int argc, char **argv)
+static int	*get_philo_life(int argc, char **argv)
 {
 	int	*philo_life;
 	int	idx;
@@ -54,4 +54,21 @@ int	*get_philo_life(int argc, char **argv)
 		return (NULL);
 	}
 	return (philo_life);
+}
+
+t_bool	get_info(int argc, char *argv[], t_table *table)
+{
+	int	*philo_life;
+	int	*forks;
+
+	philo_life = get_philo_life(argc, argv);
+	if (philo_life == NULL)
+		return (false);
+	forks = ft_alloc(philo_life[number_of_philosopers] + 1, sizeof(int), 0);
+	if (!forks)
+		return (false);
+	table->philo_life = philo_life;
+	table->forks = forks;
+	table->philo_nbr = 0;
+	return (true);
 }

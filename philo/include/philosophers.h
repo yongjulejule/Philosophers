@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 12:38:17 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/16 20:52:46 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/17 09:35:23 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@
 # define ENOMEM 12
 # define EBUSY 16
 
+/* User Define Types */
+
 typedef enum e_bool
 {
 	false = 0,
@@ -56,11 +58,24 @@ typedef struct s_table
 	int	*forks;
 }	t_table;
 
+/* FUNCTIONS */
+/* Check Validity */
+
+t_bool	check_arg_validity(int argc, char **argv);
+
+/* Get Information */
+
+t_bool	get_info(int argc, char *argv[], t_table *table);
+
+/* Generate Philosophers */
+
+t_bool	gen_philo_main(t_table table);
+
+/* Utils */
+
 int		is_err(char *err_msg, int fd, int exit_status);
 size_t	ft_strlen(char *str);
-t_bool	check_arg_validity(int argc, char **argv);
 void	*ft_alloc(size_t count, size_t size, int c);
-int		*get_philo_life(int argc, char **argv);
 int		ft_print_syserr(int err_nbr, int exit_status);
 
 #endif
