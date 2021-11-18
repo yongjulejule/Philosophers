@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 12:38:17 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/18 15:47:06 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/18 16:17:24 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ typedef struct s_waiter
 {
 	t_status	*stat;
 	suseconds_t	*now;
-	t_cqueue	**queue;
+	t_cqueue	*queue;
 }	t_waiter;
 
 typedef struct s_table
@@ -96,7 +96,7 @@ t_bool		check_arg_validity(int argc, char **argv);
 /* Get Information */
 
 t_bool		get_info(int argc, char *argv[], t_philo **philo);
-t_cqueue	*init_queue(t_philo *philo);
+t_bool		init_queue(t_philo *philo, t_cqueue *queue);
 t_bool		get_waiter(t_waiter *waiter, t_philo *philo);
 
 /* Philosopher life */

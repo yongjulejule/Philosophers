@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 16:43:47 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/18 15:48:58 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/18 16:20:55 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,13 +114,13 @@ t_bool	get_waiter(t_waiter *waiter, t_philo *philo)
 	idx = 0;
 	while (idx < 3)
 	{
-		waiter->queue[idx] = init_queue(philo);
-		if (!waiter->queue[idx])
+		waiter->queue[idx].queue = ft_alloc(cnt, sizeof(int), 0);
+		if (!waiter->queue[idx].queue)
 			break ;
 		idx++;
 	}
 	while (idx >= 0 && idx < 3)
-		free(waiter->queue[idx--]);
+		free(waiter->queue[idx--].queue);
 	if (idx == 3)
 		return (true);
 	else
