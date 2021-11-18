@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 16:43:47 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/17 17:06:36 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/18 10:26:33 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ static t_table	*get_table_info(int *philo_life, int *forks)
 		return (NULL);
 	table->philo_life = philo_life;
 	table->forks = forks;
+	table->alive = true;
 	return (table);
 }
 

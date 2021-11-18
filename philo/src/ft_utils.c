@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 15:32:06 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/17 09:49:51 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/18 09:39:14 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,20 @@ size_t	ft_strlen(char *str)
 	while (*(str + cnt))
 		cnt++;
 	return (cnt);
+}
+
+suseconds_t	get_time_gap(const suseconds_t origin)
+{
+	struct timeval	tp;
+
+	gettimeofday(&tp, NULL);
+	return (tp.tv_usec - origin);
+}
+
+suseconds_t	get_time(void)
+{
+	struct timeval	tp;
+
+	gettimeofday(&tp, NULL);
+	return (tp.tv_usec);
 }
