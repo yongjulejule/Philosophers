@@ -6,7 +6,7 @@
 #    By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/12 20:27:28 by yongjule          #+#    #+#              #
-#    Updated: 2021/11/17 09:44:46 by yongjule         ###   ########.fr        #
+#    Updated: 2021/11/18 15:25:58 by yongjule         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ INC_DIR			=	include/
 SRCS			=	$(addprefix $(SRCS_DIR), \
 					check_validity.c\
 					ft_utils.c\
-					get_philo_life.c\
+					get_info.c\
 					handle_error.c\
 					main.c\
 					gen_philosophers.c\

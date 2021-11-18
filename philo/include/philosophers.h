@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 12:38:17 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/18 10:26:27 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/18 15:47:06 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,28 @@ typedef enum e_life
 	number_of_times_each_philosoper_must_eat,
 }	t_life;
 
+typedef enum e_status
+{
+	eating,
+	sleeping,
+	thinking,
+	nothing,
+}	t_status;
+
+typedef struct s_cqueue
+{
+	int	front;
+	int	rear;
+	int	*queue;
+}	t_cqueue;
+
+typedef struct s_waiter
+{
+	t_status	*stat;
+	suseconds_t	*now;
+	t_cqueue	**queue;
+}	t_waiter;
+
 typedef struct s_table
 {
 	suseconds_t		clock;
@@ -74,10 +96,12 @@ t_bool		check_arg_validity(int argc, char **argv);
 /* Get Information */
 
 t_bool		get_info(int argc, char *argv[], t_philo **philo);
+t_cqueue	*init_queue(t_philo *philo);
+t_bool		get_waiter(t_waiter *waiter, t_philo *philo);
 
 /* Philosopher life */
 
-t_bool		gen_philo_main(t_philo *philo);
+t_bool		philo_main(t_waiter *waiter, t_philo *philo);
 t_bool		go_to_eat(t_philo *philo, const suseconds_t origin);
 t_bool		go_to_sleep(t_philo *philo, const suseconds_t origin);
 t_bool		go_to_thinking(t_philo *philo, const suseconds_t origin);
@@ -90,5 +114,6 @@ int			is_err(char *err_msg, int fd, int exit_status);
 size_t		ft_strlen(char *str);
 void		*ft_alloc(size_t count, size_t size, int c);
 int			ft_print_syserr(int err_nbr, int exit_status);
+int			ft_atoui(char *str);
 
 #endif

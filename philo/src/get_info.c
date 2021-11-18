@@ -1,33 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_philo_life.c                                   :+:      :+:    :+:   */
+/*   get_info.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 16:43:47 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/18 10:26:33 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/18 15:48:58 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-
-static int	ft_atoui(char *str)
-{
-	long long	nbr;
-
-	if (!str)
-		return (ERR);
-	nbr = 0;
-	while (*str >= '0' && *str <= '9')
-	{
-		nbr = nbr * 10 + *str - '0';
-		if (nbr > INT_MAX)
-			return (ERR);
-		str++;
-	}
-	return (nbr);
-}
 
 static int	*get_philo_life(int argc, char **argv)
 {
@@ -114,4 +97,32 @@ t_bool	get_info(int argc, char *argv[], t_philo **philo)
 	if (!*philo)
 		return (false);
 	return (true);
+}
+
+t_bool	get_waiter(t_waiter *waiter, t_philo *philo)
+{
+	int	cnt;
+	int	idx;
+
+	cnt = philo->table->philo_life[number_of_philosopers];
+	waiter->stat = ft_alloc(cnt, sizeof(t_status), nothing);
+	if (!waiter->stat)
+		return (false);
+	waiter->queue = ft_alloc(3, sizeof(t_cqueue), 0);
+	if (!waiter->queue)
+		return (false);
+	idx = 0;
+	while (idx < 3)
+	{
+		waiter->queue[idx] = init_queue(philo);
+		if (!waiter->queue[idx])
+			break ;
+		idx++;
+	}
+	while (idx >= 0 && idx < 3)
+		free(waiter->queue[idx--]);
+	if (idx == 3)
+		return (true);
+	else
+		return (false);
 }

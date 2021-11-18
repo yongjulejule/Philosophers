@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 09:32:43 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/18 10:27:22 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/18 15:27:05 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	*born_philo(void *arg)
 	return (arg);
 }
 
-t_bool	gen_philo_main(t_philo *philo)
+t_bool	philo_main(t_waiter *waiter, t_philo *philo)
 {
 	int				err;
 	pthread_t		*tid;

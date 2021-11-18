@@ -6,11 +6,28 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 15:32:06 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/18 09:39:14 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/18 15:25:34 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+int	ft_atoui(char *str)
+{
+	long long	nbr;
+
+	if (!str)
+		return (ERR);
+	nbr = 0;
+	while (*str >= '0' && *str <= '9')
+	{
+		nbr = nbr * 10 + *str - '0';
+		if (nbr > INT_MAX)
+			return (ERR);
+		str++;
+	}
+	return (nbr);
+}
 
 void	*ft_alloc(size_t count, size_t size, int c)
 {

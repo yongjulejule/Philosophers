@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   circular_queue.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/19 12:37:06 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/18 15:26:24 by yongjule         ###   ########.fr       */
+/*   Created: 2021/11/18 15:37:57 by yongjule          #+#    #+#             */
+/*   Updated: 2021/11/18 15:47:12 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	main(int argc, char **argv)
+t_cqueue	*init_queue(t_philo *philo)
 {
-	t_philo		*philo;
-	t_waiter	waiter;
+	t_cqueue	*queue;
 
-	if (!check_arg_validity(argc, argv))
-		return (is_err("Invalid Arguments", STDERR_FILENO, EXIT_FAILURE));
-	if (!get_info(argc, argv, &philo))
-		return (EXIT_FAILURE);
-	if (!get_waiter(&waiter, philo))
-		return (EXIT_FAILURE);
-	if (!philo_main(&waiter, philo))
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
+	queue = ft_alloc(philo->table->philo_life[number_of_philosopers],
+			sizeof(t_cqueue), 0);
+	if (!queue)
+		return (NULL);
 }
