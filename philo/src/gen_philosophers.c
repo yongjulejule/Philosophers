@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 09:32:43 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/19 19:51:55 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/20 00:05:38 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,16 @@ static void	*born_philo(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	if (philo->ph_idx % 2 == 0)
-		usleep(philo->table->philo_life[time_to_die] * 1000 / 2);
+	if (philo->ph_idx % 2 == 0 || philo->ph_idx == philo->table->philo_life[number_of_philosopers])
+		usleep(1000);
 	while (philo->table->alive)
 	{
 		if (philo->table->philo_life[number_of_philosopers] != 1)
 			go_to_eat(philo, philo->table->clock);
 		if (philo->table->alive)
 			go_to_sleep(philo, philo->table->clock);
+		if (philo->table->alive)
+			go_to_think(philo, philo->table->clock);
 	}
 	return (arg);
 }
@@ -58,6 +60,11 @@ t_bool	philo_main(t_philo *philo)
 	}
 	idx = 0;
 	while (idx < philo->table->philo_life[number_of_philosopers])
-		pthread_join(tid[idx++], NULL);
+	{
+		err = pthread_join(tid[idx++], NULL);
+		if (err)
+			ft_print_syserr(err, EXIT_FAILURE);
+		return (false);
+	}
 	return (true);
 }
