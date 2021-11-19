@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 09:44:25 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/18 10:27:08 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/19 12:59:58 yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,14 @@ void	have_meal(int *fork_idx, t_philo *philo, const suseconds_t origin)
 		usleep(500);
 	printf("%dms philosopher %d is eating\n", get_time_gap(origin) / 1000,
 		philo->ph_idx);
-	pthread_mutex_lock(&(philo->mutex));
 	philo->table->forks[fork_idx[0]] = 0;
 	philo->table->forks[fork_idx[1]] = 0;
-	pthread_mutex_unlock(&(philo->mutex));
 }
 
 void	take_fork(int *fork_idx, t_philo *philo, const suseconds_t origin)
 {
-	pthread_mutex_lock(&(philo->mutex));
 	philo->table->forks[fork_idx[0]] = 1;
 	philo->table->forks[fork_idx[1]] = 1;
-	pthread_mutex_unlock(&(philo->mutex));
 	printf("%dms philosopher %d has take a fork\n",
 		get_time_gap(origin) / 1000, philo->ph_idx);
 }
@@ -49,27 +45,50 @@ t_bool	go_to_eat(t_philo *philo, const suseconds_t origin)
 	else
 		fork_idx[1] = philo->ph_idx;
 	now = get_time();
-	while (get_time_gap(now) < philo->table->philo_life[time_to_die])
+	// pthread_mutex_lock(&philo->mutex);
+	while (philo->table->alive && (philo->table->forks[fork_idx[0]]
+			|| philo->table->forks[fork_idx[1]]))
 	{
-		if (!philo->table->forks[fork_idx[0]]
-			&& !philo->table->forks[fork_idx[1]])
+		usleep(10);
+		if (get_time_gap(now) / 1000 > philo->table->philo_life[time_to_die])
 		{
-			take_fork(fork_idx, philo, origin);
-			have_meal(fork_idx, philo, origin);
-			return (true);
+			if (philo->table->alive)
+				printf("%dms philosopher %d is die\n", get_time_gap(origin) / 1000, philo->ph_idx);
+			philo->table->alive = false;
+			return (false);
 		}
-		else
-			usleep(100);
 	}
-	return (false);
+	if (philo->table->alive)
+		take_fork(fork_idx, philo, origin);
+	if (philo->table->alive)
+		have_meal(fork_idx, philo, origin);
+	// pthread_mutex_unlock(&(philo->mutex));
+	return (true);
 }
 
-// t_bool	go_to_sleep(t_table *table, const suseconds_t origin)
-// {
+t_bool	go_to_sleep(t_philo *philo, const suseconds_t origin)
+{
+	suseconds_t	now;
 
-// }
+	now = get_time();
+	while (philo->table->alive && get_time_gap(now) / 1000 < philo->table->philo_life[time_to_sleep])
+		usleep(100);
+	if (philo->table->alive)
+		printf("%dms philosopher %d is sleeping\n", get_time_gap(origin) / 1000,
+			philo->ph_idx);
+	else
+		return (false);
+	return (true);
+}
 
-// t_bool	go_to_thinking(t_table *table, const suseconds_t origin)
-// {
+t_bool	go_to_think(t_philo *philo, const suseconds_t origin)
+{
+	suseconds_t	now;
 
-// }
+	now = get_time();
+	while (get_time_gap(now) / 1000 < philo->table->philo_life[time_to_sleep])
+		usleep(100);
+	printf("%dms philosopher %d is sleeping\n", get_time_gap(origin) / 1000,
+		philo->ph_idx);
+	return (true);
+}

@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 09:32:43 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/18 20:51:06 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/19 16:26:07 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,14 @@ static void	*born_philo(void *arg)
 	while (philo->table->alive)
 	{
 		if (philo->table->philo_life[number_of_philosopers] != 1)
-			philo->table->alive = go_to_eat(philo, philo->table->clock);
-		// else
-		// 	die();
+			go_to_eat(philo, philo->table->clock);
 		if (philo->table->alive)
-		{
-			// go_to_sleep(philo, philo->table->clock);
-			// go_to_thinking(philo, philo->table->clock);
-		}
-		// else
-		// 	die();
+			go_to_sleep(philo, philo->table->clock);
 	}
 	return (arg);
 }
 
-t_bool	philo_main(t_waiter *waiter, t_philo *philo)
+t_bool	philo_main(t_philo *philo)
 {
 	int				err;
 	pthread_t		*tid;

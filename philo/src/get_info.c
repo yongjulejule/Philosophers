@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 16:43:47 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/18 16:20:55 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/19 17:09:05 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,14 @@ static t_philo	*get_philo_data(t_table *table)
 	{
 		philo[idx].ph_idx = idx + 1;
 		philo[idx].table = table;
-		err = pthread_mutex_init(&(philo[idx].mutex), NULL);
+		philo[idx].left = ft_alloc(1, sizeof(pthread_mutex_t), 0);
+		if (idx != philo->table->philo_life[number_of_philosopers] - 1)
+			philo[idx].right = ft_alloc(1, sizeof(pthread_mutex_t), 0);
+		else
+			philo[idx].right = philo[0].left;
+		if (!philo->left || !philo->right)
+			return (NULL);
+		err = pthread_mutex_init((philo[idx].right), NULL);
 		if (err)
 		{
 			ft_print_syserr(err, false);
@@ -75,6 +82,9 @@ static t_philo	*get_philo_data(t_table *table)
 		}
 		idx++;
 	}
+	while (idx--)
+		philo[idx].left = &philo[(idx + 1)
+			% (philo->table->philo_life[number_of_philosopers])].right[0];
 	return (philo);
 }
 
@@ -97,32 +107,4 @@ t_bool	get_info(int argc, char *argv[], t_philo **philo)
 	if (!*philo)
 		return (false);
 	return (true);
-}
-
-t_bool	get_waiter(t_waiter *waiter, t_philo *philo)
-{
-	int	cnt;
-	int	idx;
-
-	cnt = philo->table->philo_life[number_of_philosopers];
-	waiter->stat = ft_alloc(cnt, sizeof(t_status), nothing);
-	if (!waiter->stat)
-		return (false);
-	waiter->queue = ft_alloc(3, sizeof(t_cqueue), 0);
-	if (!waiter->queue)
-		return (false);
-	idx = 0;
-	while (idx < 3)
-	{
-		waiter->queue[idx].queue = ft_alloc(cnt, sizeof(int), 0);
-		if (!waiter->queue[idx].queue)
-			break ;
-		idx++;
-	}
-	while (idx >= 0 && idx < 3)
-		free(waiter->queue[idx--].queue);
-	if (idx == 3)
-		return (true);
-	else
-		return (false);
 }

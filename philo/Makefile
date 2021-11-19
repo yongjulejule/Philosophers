@@ -6,7 +6,7 @@
 #    By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/12 20:27:28 by yongjule          #+#    #+#              #
-#    Updated: 2021/11/18 15:25:58 by yongjule         ###   ########.fr        #
+#    Updated: 2021/11/19 16:26:59 by yongjule         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,18 +78,13 @@ $(NAME)			: 	$(OBJS)
 .PHONY			:	clean
 clean			:
 					@rm -f $(OBJS)
-					@echo $(L_RED) Remove🧹 OBJ files in minishell 👋 $(RESET)
+					@echo $(L_RED) Remove🧹 OBJ files in philosophers 👋 $(RESET)
 
 
 .PHONY			:	fclean
 fclean			:	clean
 					@rm -f $(NAME)
 					@echo $(RED) Remove🧹 $(NAME)🦪 $(RESET)
-
-.PHONY			:	ffclean
-ffclean			:	fclean
-					@rm -rf $(NAME).dSYM
-					@echo $(RED) Remove🧹 $(NAME).dSYM 🎉 $(RESET)
 
 .PHONY			:	re
 re				:	fclean all
