@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 09:32:43 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/19 16:26:07 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/19 19:51:55 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static void	*born_philo(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
+	if (philo->ph_idx % 2 == 0)
+		usleep(philo->table->philo_life[time_to_die] * 1000 / 2);
 	while (philo->table->alive)
 	{
 		if (philo->table->philo_life[number_of_philosopers] != 1)

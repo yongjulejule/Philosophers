@@ -17,11 +17,16 @@ void	have_meal(int *fork_idx, t_philo *philo, const suseconds_t origin)
 	suseconds_t	now;
 
 	now = get_time();
-	while (get_time_gap(now) / 1000
-		< philo->table->philo_life[time_to_eat])
-		usleep(500);
 	printf("%dms philosopher %d is eating\n", get_time_gap(origin) / 1000,
 		philo->ph_idx);
+	while (get_time_gap(now) / 1000
+		< philo->table->philo_life[time_to_eat])
+	{
+		if (philo->table->alive)
+			usleep(500);
+		else
+			return ;
+	}
 	philo->table->forks[fork_idx[0]] = 0;
 	philo->table->forks[fork_idx[1]] = 0;
 }
@@ -29,8 +34,10 @@ void	have_meal(int *fork_idx, t_philo *philo, const suseconds_t origin)
 void	take_fork(int *fork_idx, t_philo *philo, const suseconds_t origin)
 {
 	philo->table->forks[fork_idx[0]] = 1;
+	printf("%dms philosopher %d has take a fork(left)\n",
+		get_time_gap(origin) / 1000, philo->ph_idx);
 	philo->table->forks[fork_idx[1]] = 1;
-	printf("%dms philosopher %d has take a fork\n",
+	printf("%dms philosopher %d has take a fork(right)\n",
 		get_time_gap(origin) / 1000, philo->ph_idx);
 }
 
@@ -45,24 +52,23 @@ t_bool	go_to_eat(t_philo *philo, const suseconds_t origin)
 	else
 		fork_idx[1] = philo->ph_idx;
 	now = get_time();
-	// pthread_mutex_lock(&philo->mutex);
-	while (philo->table->alive && (philo->table->forks[fork_idx[0]]
-			|| philo->table->forks[fork_idx[1]]))
+	if (get_time_gap(now) / 1000 > philo->table->philo_life[time_to_die])
 	{
-		usleep(10);
-		if (get_time_gap(now) / 1000 > philo->table->philo_life[time_to_die])
-		{
-			if (philo->table->alive)
-				printf("%dms philosopher %d is die\n", get_time_gap(origin) / 1000, philo->ph_idx);
-			philo->table->alive = false;
-			return (false);
-		}
+		if (philo->table->alive)
+			printf("%dms philosopher %d is died\n", get_time_gap(origin) / 1000, philo->ph_idx);
+		philo->table->alive = false;
+		return (false);
 	}
+	pthread_mutex_lock(philo->left);
+	printf("left %d \n", philo->ph_idx);
+	pthread_mutex_lock(philo->right);
+	printf("right%d \n", philo->ph_idx);
 	if (philo->table->alive)
 		take_fork(fork_idx, philo, origin);
 	if (philo->table->alive)
 		have_meal(fork_idx, philo, origin);
-	// pthread_mutex_unlock(&(philo->mutex));
+	pthread_mutex_unlock(philo->left);
+	pthread_mutex_unlock(philo->right);
 	return (true);
 }
 
@@ -71,13 +77,13 @@ t_bool	go_to_sleep(t_philo *philo, const suseconds_t origin)
 	suseconds_t	now;
 
 	now = get_time();
-	while (philo->table->alive && get_time_gap(now) / 1000 < philo->table->philo_life[time_to_sleep])
-		usleep(100);
 	if (philo->table->alive)
 		printf("%dms philosopher %d is sleeping\n", get_time_gap(origin) / 1000,
 			philo->ph_idx);
 	else
 		return (false);
+	while (philo->table->alive && get_time_gap(now) / 1000 < philo->table->philo_life[time_to_sleep])
+		usleep(100);
 	return (true);
 }
 
