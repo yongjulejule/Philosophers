@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 12:38:17 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/20 14:43:05 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/20 15:29:14 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ typedef enum e_status
 
 typedef struct s_table
 {
-	suseconds_t		clock;
+	time_t			clock;
 	t_bool			alive;
 	int				*philo_life;
 	int				*forks;
@@ -89,11 +89,11 @@ t_bool		get_info(int argc, char *argv[], t_philo **philo);
 /* Philosopher life */
 
 t_bool		philo_main(t_philo *philo);
-t_bool		go_to_eat(t_philo *philo, const suseconds_t origin);
-t_bool		go_to_sleep(t_philo *philo, const suseconds_t origin);
-t_bool		go_to_think(t_philo *philo, const suseconds_t origin);
-suseconds_t	get_time_gap(const suseconds_t origin);
-suseconds_t	get_time(void);
+t_bool		go_to_eat(t_philo *philo, const time_t origin);
+t_bool		go_to_sleep(t_philo *philo, const time_t origin);
+t_bool		go_to_think(t_philo *philo, const time_t origin);
+time_t		get_time_gap(const time_t origin);
+time_t		get_time(void);
 
 /* Utils */
 

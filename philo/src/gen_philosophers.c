@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 09:32:43 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/20 14:28:43 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/20 15:39:10 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ static void	*born_philo(void *arg)
 			go_to_sleep(philo, philo->table->clock);
 		if (philo->table->alive)
 			go_to_think(philo, philo->table->clock);
-		sleep(1);
 	}
 	return (arg);
 }
@@ -38,14 +37,12 @@ t_bool	philo_main(t_philo *philo)
 	int				err;
 	pthread_t		*tid;
 	int				idx;
-	struct timeval	tp;
 
 	tid = ft_alloc(philo->table->philo_life[number_of_philosopers],
 			sizeof(int), 0);
 	if (!tid)
 		return (false);
-	gettimeofday(&tp, NULL);
-	philo->table->clock = tp.tv_usec;
+	philo->table->clock = get_time();
 	idx = 0;
 	while (idx < philo->table->philo_life[number_of_philosopers])
 	{
