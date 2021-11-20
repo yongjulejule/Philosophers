@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 09:44:25 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/20 18:13:40 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/20 18:56:33 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,20 @@ void	have_meal(int *fork_idx, t_philo *philo, const time_t origin)
 
 	now = get_time();
 	philo->status = eating;
-	printf("%ldms philosopher %d is eating\n", get_time_gap(origin),
-		philo->ph_idx);
+	pthread_mutex_lock(&philo->table->mutex);
+	if (philo->table->alive)
+		printf("%ldms philosopher %d is eating\n", get_time_gap(origin),
+			philo->ph_idx);
+	else
+	{
+		pthread_mutex_unlock(&philo->table->mutex);
+		return ;
+	}	
+	pthread_mutex_unlock(&philo->table->mutex);
 	while (get_time_gap(now) < philo->table->philo_life[time_to_eat])
 	{
 		if (philo->table->alive)
-			usleep(10);
+			usleep(500);
 		else
 			return ;
 	}
@@ -35,14 +43,23 @@ void	have_meal(int *fork_idx, t_philo *philo, const time_t origin)
 void	take_fork(int *fork_idx, t_philo *philo, const time_t origin)
 {
 	philo->table->forks[fork_idx[0]] = 1;
-	printf("%ldms philosopher %d has take a fork(left)\n",
-		get_time_gap(origin), philo->ph_idx);
+	pthread_mutex_lock(&philo->table->mutex);
+	if (philo->table->alive)
+		printf("%ldms philosopher %d has take a fork(left)\n",
+			get_time_gap(origin), philo->ph_idx);
 	philo->table->forks[fork_idx[1]] = 1;
-	printf("%ldms philosopher %d has take a fork(right)\n",
-		get_time_gap(origin), philo->ph_idx);
+	if (philo->table->alive)
+		printf("%ldms philosopher %d has take a fork(right)\n",
+			get_time_gap(origin), philo->ph_idx);
+	else
+	{
+		pthread_mutex_unlock(&philo->table->mutex);
+		return ;
+	}	
+	pthread_mutex_unlock(&philo->table->mutex);
 }
 
-t_bool	go_to_eat(t_philo *philo, const time_t origin)
+void	go_to_eat(t_philo *philo, const time_t origin)
 {
 	int		fork_idx[2];
 
@@ -59,33 +76,40 @@ t_bool	go_to_eat(t_philo *philo, const time_t origin)
 		have_meal(fork_idx, philo, origin);
 	pthread_mutex_unlock(philo->left);
 	pthread_mutex_unlock(philo->right);
-	return (true);
 }
 
-t_bool	go_to_sleep(t_philo *philo, const time_t origin)
+void	go_to_sleep(t_philo *philo, const time_t origin)
 {
 	time_t	now;
 
 	now = get_time();
 	philo->status = sleeping;
+	pthread_mutex_lock(&philo->table->mutex);
 	if (philo->table->alive)
 		printf("%ldms philosopher %d is sleeping\n", get_time_gap(origin),
 			philo->ph_idx);
 	else
-		return (false);
+	{
+		pthread_mutex_unlock(&philo->table->mutex);
+		return ;
+	}	
+	pthread_mutex_unlock(&philo->table->mutex);
 	while (philo->table->alive && get_time_gap(now)
 		< philo->table->philo_life[time_to_sleep])
-		usleep(10);
-	return (true);
+		usleep(500);
 }
 
-t_bool	go_to_think(t_philo *philo, const time_t origin)
+void	go_to_think(t_philo *philo, const time_t origin)
 {
 	philo->status = thinking;
+	pthread_mutex_lock(&philo->table->mutex);
 	if (philo->table->alive)
 		printf("%ldms philosopher %d is thinking\n", get_time_gap(origin),
 			philo->ph_idx);
 	else
-		return (false);
-	return (true);
+	{
+		pthread_mutex_unlock(&philo->table->mutex);
+		return ;
+	}	
+	pthread_mutex_unlock(&philo->table->mutex);
 }

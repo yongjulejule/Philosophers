@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 16:43:47 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/20 18:10:56 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/20 18:33:43 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static int	*get_philo_life(int argc, char **argv)
 static t_table	*get_table_info(int *philo_life, int *forks)
 {
 	t_table	*table;
+	int		err;
 
 	table = ft_alloc(1, sizeof(t_table), 0);
 	if (!table)
@@ -49,6 +50,15 @@ static t_table	*get_table_info(int *philo_life, int *forks)
 	table->philo_life = philo_life;
 	table->forks = forks;
 	table->alive = true;
+	err = pthread_mutex_init(&table->mutex, NULL);
+	if (err)
+	{
+		free(philo_life);
+		free(forks);
+		free(table);
+		ft_print_syserr(err, EXIT_FAILURE);
+		return (NULL);
+	}
 	return (table);
 }
 

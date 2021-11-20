@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 09:32:43 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/20 18:16:08 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/20 18:51:07 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	*born_philo(void *arg)
 	philo = (t_philo *)arg;
 	if (philo->ph_idx % 2 == 0
 		|| philo->ph_idx == philo->table->philo_life[number_of_philosopers])
-		usleep(1000);
+		usleep(500);
 	while (philo->table->alive)
 	{
 		if (philo->table->philo_life[number_of_philosopers] != 1)
@@ -70,9 +70,11 @@ static void	check_status(t_philo *philo)
 		if (philo[idx].status != eating
 			&& get_time_gap(philo[idx].hunger) > table->philo_life[time_to_die])
 		{
+			pthread_mutex_lock(&philo->table->mutex);
 			if (table->alive)
 				printf("\033[1;31m%ldms philosopher %d is died \033[0m \n",
 					get_time_gap(table->clock), philo[idx].ph_idx);
+			pthread_mutex_unlock(&philo->table->mutex);
 			table->alive = false;
 		}
 		idx++;
