@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 09:32:43 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/20 17:07:10 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/20 18:05:03 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,28 @@ static t_bool	exit_philosopher(t_philo *philo, pthread_t *tid)
 	return (true);
 }
 
+static void	check_status(t_philo *philo)
+{
+	int		idx;
+	t_table	*table;
+
+	idx = 0;
+	table = philo->table;
+	while (philo[idx].table->alive)
+	{
+		if (get_time_gap(philo[idx].hunger) > table->philo_life[time_to_die])
+		{
+			if (table->alive)
+				printf("\033[1;31m%ldms philosopher %d is died \033[0m \n",
+					get_time_gap(table->clock), philo[idx].ph_idx);
+			table->alive = false;
+		}
+		idx++;
+		if (idx >= table->philo_life[number_of_philosopers])
+			idx = 0;
+	}
+}
+
 t_bool	philo_main(t_philo *philo)
 {
 	int				err;
@@ -69,8 +91,8 @@ t_bool	philo_main(t_philo *philo)
 	if (!tid)
 		return (false);
 	philo->table->clock = get_time();
-	idx = 0;
-	while (idx < philo->table->philo_life[number_of_philosopers])
+	idx = -1;
+	while (++idx < philo->table->philo_life[number_of_philosopers])
 	{
 		philo[idx].hunger = philo->table->clock;
 		err = pthread_create(&tid[idx], NULL, born_philo, &philo[idx]);
@@ -80,8 +102,8 @@ t_bool	philo_main(t_philo *philo)
 			free(tid);
 			return (false);
 		}
-		idx++;
 	}
+	check_status(philo);
 	if (!exit_philosopher(philo, tid))
 		return (false);
 	return (true);

@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 12:38:17 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/20 16:39:10 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/20 17:57:09 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ typedef enum e_status
 	eating,
 	sleeping,
 	thinking,
-	nothing,
+	hunger,
 }	t_status;
 
 /* User Define Structure */
@@ -74,6 +74,7 @@ typedef struct s_table
 typedef struct s_philo
 {
 	int				ph_idx;
+	t_status		status;
 	time_t			hunger;
 	t_table			*table;
 	pthread_mutex_t	*left;
