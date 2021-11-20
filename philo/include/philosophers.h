@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 12:38:17 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/19 16:48:35 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/20 14:43:05 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define EFAULT 11
 # define ENOMEM 12
 # define EBUSY 16
+
 /* User Define Types */
 
 typedef enum e_bool

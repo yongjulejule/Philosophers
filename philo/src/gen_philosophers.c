@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 09:32:43 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/20 00:05:38 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/20 14:28:43 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static void	*born_philo(void *arg)
 			go_to_sleep(philo, philo->table->clock);
 		if (philo->table->alive)
 			go_to_think(philo, philo->table->clock);
+		sleep(1);
 	}
 	return (arg);
 }

@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 16:43:47 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/19 17:25:02 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/20 13:47:08 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,11 @@ static t_philo	*get_philo_data(t_table *table)
 	{
 		philo[idx].ph_idx = idx + 1;
 		philo[idx].table = table;
-		philo[idx].left = ft_alloc(1, sizeof(pthread_mutex_t), 0);
-		if (idx != philo->table->philo_life[number_of_philosopers] - 1)
+		// if (idx != philo->table->philo_life[number_of_philosopers] - 1)
 			philo[idx].right = ft_alloc(1, sizeof(pthread_mutex_t), 0);
-		else
-			philo[idx].right = philo[0].left;
-		if (!philo->left || !philo->right)
+		// else
+		// 	philo[idx].right = philo[0].left;
+		if (!philo->right)
 			return (NULL);
 		err = pthread_mutex_init((philo[idx].right), NULL);
 		if (err)
