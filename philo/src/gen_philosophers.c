@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 09:32:43 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/20 15:39:10 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/20 16:00:01 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ static void	*born_philo(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	if (philo->ph_idx % 2 == 0 || philo->ph_idx == philo->table->philo_life[number_of_philosopers])
+	if (philo->ph_idx % 2 == 0
+		|| philo->ph_idx == philo->table->philo_life[number_of_philosopers])
 		usleep(1000);
 	while (philo->table->alive)
 	{
@@ -30,6 +31,30 @@ static void	*born_philo(void *arg)
 			go_to_think(philo, philo->table->clock);
 	}
 	return (arg);
+}
+
+/* TODO : destroy mutex, free philo structure, tid, free if fail to join */
+
+static void	free_memory(t_philo *philo, pthread_t *tid)
+{
+	free(tid);
+}
+
+static t_bool	exit_philosopher(t_philo *philo, pthread_t *tid)
+{
+	int	idx;
+	int	err;
+
+	idx = 0;
+	while (idx < philo->table->philo_life[number_of_philosopers])
+	{
+		err = pthread_join(tid[idx++], NULL);
+		if (err)
+			ft_print_syserr(err, EXIT_FAILURE);
+		return (false);
+	}
+	free_memory(philo, tid);
+	return (true);
 }
 
 t_bool	philo_main(t_philo *philo)
@@ -46,7 +71,6 @@ t_bool	philo_main(t_philo *philo)
 	idx = 0;
 	while (idx < philo->table->philo_life[number_of_philosopers])
 	{
-		usleep(10);
 		err = pthread_create(&tid[idx], NULL, born_philo, &philo[idx]);
 		if (err)
 		{
@@ -56,13 +80,7 @@ t_bool	philo_main(t_philo *philo)
 		}
 		idx++;
 	}
-	idx = 0;
-	while (idx < philo->table->philo_life[number_of_philosopers])
-	{
-		err = pthread_join(tid[idx++], NULL);
-		if (err)
-			ft_print_syserr(err, EXIT_FAILURE);
+	if (!exit_philosopher(philo, tid))
 		return (false);
-	}
 	return (true);
 }

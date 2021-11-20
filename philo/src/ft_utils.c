@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 15:32:06 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/20 15:38:41 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/20 15:50:28 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ time_t	get_time_gap(const time_t origin)
 	time_t			now;
 
 	now = get_time();
-	return (now - origin);
+	return ((now - origin) / 1000);
 }
 
 time_t	get_time(void)
