@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 09:32:43 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/20 18:51:07 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/20 21:56:44 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	*born_philo(void *arg)
 	philo = (t_philo *)arg;
 	if (philo->ph_idx % 2 == 0
 		|| philo->ph_idx == philo->table->philo_life[number_of_philosopers])
-		usleep(500);
+		usleep(100);
 	while (philo->table->alive)
 	{
 		if (philo->table->philo_life[number_of_philosopers] != 1)
@@ -67,8 +67,8 @@ static void	check_status(t_philo *philo)
 	table = philo->table;
 	while (philo[idx].table->alive)
 	{
-		if (philo[idx].status != eating
-			&& get_time_gap(philo[idx].hunger) > table->philo_life[time_to_die])
+		if (philo[idx].status != eating && get_time_gap(philo[idx].hunger)
+			>= table->philo_life[time_to_die])
 		{
 			pthread_mutex_lock(&philo->table->mutex);
 			if (table->alive)
@@ -101,6 +101,7 @@ t_bool	philo_main(t_philo *philo)
 		err = pthread_create(&tid[idx], NULL, born_philo, &philo[idx]);
 		if (err)
 		{
+			philo->table->alive = false;
 			ft_print_syserr(err, EXIT_FAILURE);
 			free(tid);
 			return (false);

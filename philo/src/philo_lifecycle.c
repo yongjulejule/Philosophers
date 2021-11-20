@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 09:44:25 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/20 18:56:33 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/20 21:52:58 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,11 @@ void	take_fork(int *fork_idx, t_philo *philo, const time_t origin)
 	philo->table->forks[fork_idx[0]] = 1;
 	pthread_mutex_lock(&philo->table->mutex);
 	if (philo->table->alive)
-		printf("%ldms philosopher %d has take a fork(left)\n",
+		printf("%ldms philosopher %d has take a fork\n",
 			get_time_gap(origin), philo->ph_idx);
 	philo->table->forks[fork_idx[1]] = 1;
 	if (philo->table->alive)
-		printf("%ldms philosopher %d has take a fork(right)\n",
+		printf("%ldms philosopher %d has take a fork\n",
 			get_time_gap(origin), philo->ph_idx);
 	else
 	{
