@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 09:44:25 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/20 18:06:02 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/20 18:13:40 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,13 @@ void	have_meal(int *fork_idx, t_philo *philo, const time_t origin)
 	time_t	now;
 
 	now = get_time();
+	philo->status = eating;
 	printf("%ldms philosopher %d is eating\n", get_time_gap(origin),
 		philo->ph_idx);
 	while (get_time_gap(now) < philo->table->philo_life[time_to_eat])
 	{
 		if (philo->table->alive)
-			usleep(1);
+			usleep(10);
 		else
 			return ;
 	}
@@ -66,35 +67,21 @@ t_bool	go_to_sleep(t_philo *philo, const time_t origin)
 	time_t	now;
 
 	now = get_time();
+	philo->status = sleeping;
 	if (philo->table->alive)
 		printf("%ldms philosopher %d is sleeping\n", get_time_gap(origin),
 			philo->ph_idx);
 	else
 		return (false);
-	if (get_time_gap(philo->hunger) > philo->table->philo_life[time_to_die])
-	{
-		if (philo->table->alive)
-			printf("%ldms philosopher %d is died\n", get_time_gap(origin),
-				philo->ph_idx);
-		philo->table->alive = false;
-		return (false);
-	}
 	while (philo->table->alive && get_time_gap(now)
 		< philo->table->philo_life[time_to_sleep])
-		usleep(1);
+		usleep(10);
 	return (true);
 }
 
 t_bool	go_to_think(t_philo *philo, const time_t origin)
 {
-	if (get_time_gap(philo->hunger) > philo->table->philo_life[time_to_die])
-	{
-		if (philo->table->alive)
-			printf("%ldms philosopher %d is died\n", get_time_gap(origin),
-				philo->ph_idx);
-		philo->table->alive = false;
-		return (false);
-	}
+	philo->status = thinking;
 	if (philo->table->alive)
 		printf("%ldms philosopher %d is thinking\n", get_time_gap(origin),
 			philo->ph_idx);

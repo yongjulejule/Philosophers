@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 09:32:43 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/20 18:05:03 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/20 18:16:08 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ static void	check_status(t_philo *philo)
 	table = philo->table;
 	while (philo[idx].table->alive)
 	{
-		if (get_time_gap(philo[idx].hunger) > table->philo_life[time_to_die])
+		if (philo[idx].status != eating
+			&& get_time_gap(philo[idx].hunger) > table->philo_life[time_to_die])
 		{
 			if (table->alive)
 				printf("\033[1;31m%ldms philosopher %d is died \033[0m \n",

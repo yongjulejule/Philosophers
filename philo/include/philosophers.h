@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 12:38:17 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/20 17:57:09 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/20 18:11:59 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef enum e_bool
 
 typedef enum e_life
 {
-	number_of_philosopers,
+	number_of_philosopers = 0,
 	time_to_die,
 	time_to_eat,
 	time_to_sleep,
@@ -55,10 +55,10 @@ typedef enum e_life
 
 typedef enum e_status
 {
+	hunger = 0,
 	eating,
 	sleeping,
 	thinking,
-	hunger,
 }	t_status;
 
 /* User Define Structure */
