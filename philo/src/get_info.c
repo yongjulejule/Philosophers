@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 16:43:47 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/20 13:47:08 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/20 16:57:56 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ static t_table	*get_table_info(int *philo_life, int *forks)
 	return (table);
 }
 
+/* TODO : Free all array in while if fail */
+
 static t_philo	*get_philo_data(t_table *table)
 {
 	t_philo	*philo;
@@ -67,10 +69,7 @@ static t_philo	*get_philo_data(t_table *table)
 	{
 		philo[idx].ph_idx = idx + 1;
 		philo[idx].table = table;
-		// if (idx != philo->table->philo_life[number_of_philosopers] - 1)
-			philo[idx].right = ft_alloc(1, sizeof(pthread_mutex_t), 0);
-		// else
-		// 	philo[idx].right = philo[0].left;
+		philo[idx].right = ft_alloc(1, sizeof(pthread_mutex_t), 0);
 		if (!philo->right)
 			return (NULL);
 		err = pthread_mutex_init((philo[idx].right), NULL);
@@ -86,6 +85,8 @@ static t_philo	*get_philo_data(t_table *table)
 			% (philo->table->philo_life[number_of_philosopers])].right[0];
 	return (philo);
 }
+
+/* TODO : Free if fail for all cases */
 
 t_bool	get_info(int argc, char *argv[], t_philo **philo)
 {

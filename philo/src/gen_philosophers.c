@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 09:32:43 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/20 16:00:01 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/20 17:07:10 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static void	*born_philo(void *arg)
 static void	free_memory(t_philo *philo, pthread_t *tid)
 {
 	free(tid);
+	philo->ph_idx = 1;
 }
 
 static t_bool	exit_philosopher(t_philo *philo, pthread_t *tid)
@@ -71,6 +72,7 @@ t_bool	philo_main(t_philo *philo)
 	idx = 0;
 	while (idx < philo->table->philo_life[number_of_philosopers])
 	{
+		philo[idx].hunger = philo->table->clock;
 		err = pthread_create(&tid[idx], NULL, born_philo, &philo[idx]);
 		if (err)
 		{

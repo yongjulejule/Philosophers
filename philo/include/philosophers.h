@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 12:38:17 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/20 15:29:14 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/20 16:39:10 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ typedef enum e_status
 	nothing,
 }	t_status;
 
+/* User Define Structure */
+
 typedef struct s_table
 {
 	time_t			clock;
@@ -72,6 +74,7 @@ typedef struct s_table
 typedef struct s_philo
 {
 	int				ph_idx;
+	time_t			hunger;
 	t_table			*table;
 	pthread_mutex_t	*left;
 	pthread_mutex_t	*right;
@@ -86,7 +89,7 @@ t_bool		check_arg_validity(int argc, char **argv);
 
 t_bool		get_info(int argc, char *argv[], t_philo **philo);
 
-/* Philosopher life */
+/* Philosopher Life */
 
 t_bool		philo_main(t_philo *philo);
 t_bool		go_to_eat(t_philo *philo, const time_t origin);
