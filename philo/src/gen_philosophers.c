@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 09:32:43 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/20 21:56:44 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/21 14:27:47 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,12 @@ static void	*born_philo(void *arg)
 
 static void	free_memory(t_philo *philo, pthread_t *tid)
 {
+	int	cnt;
+
+	cnt = philo->table->philo_life[number_of_philosopers];
 	free(tid);
-	philo->ph_idx = 1;
+	free_table(&philo->table);
+	free_n_philo(&philo, cnt);
 }
 
 static t_bool	exit_philosopher(t_philo *philo, pthread_t *tid)
@@ -47,12 +51,15 @@ static t_bool	exit_philosopher(t_philo *philo, pthread_t *tid)
 	int	err;
 
 	idx = 0;
+	err = 0;
 	while (idx < philo->table->philo_life[number_of_philosopers])
 	{
 		err = pthread_join(tid[idx++], NULL);
 		if (err)
+		{
 			ft_print_syserr(err, EXIT_FAILURE);
-		return (false);
+			return (false);
+		}
 	}
 	free_memory(philo, tid);
 	return (true);
@@ -65,7 +72,7 @@ static void	check_status(t_philo *philo)
 
 	idx = 0;
 	table = philo->table;
-	while (philo[idx].table->alive)
+	while (philo->table->alive)
 	{
 		if (philo[idx].status != eating && get_time_gap(philo[idx].hunger)
 			>= table->philo_life[time_to_die])
@@ -74,8 +81,9 @@ static void	check_status(t_philo *philo)
 			if (table->alive)
 				printf("\033[1;31m%ldms philosopher %d is died \033[0m \n",
 					get_time_gap(table->clock), philo[idx].ph_idx);
-			pthread_mutex_unlock(&philo->table->mutex);
 			table->alive = false;
+			pthread_mutex_unlock(&philo->table->mutex);
+			return ;
 		}
 		idx++;
 		if (idx >= table->philo_life[number_of_philosopers])
@@ -103,8 +111,7 @@ t_bool	philo_main(t_philo *philo)
 		{
 			philo->table->alive = false;
 			ft_print_syserr(err, EXIT_FAILURE);
-			free(tid);
-			return (false);
+			break ;
 		}
 	}
 	check_status(philo);

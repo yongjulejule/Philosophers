@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 12:38:17 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/20 18:32:38 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/21 14:17:49 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,5 +107,8 @@ size_t		ft_strlen(char *str);
 void		*ft_alloc(size_t count, size_t size, int c);
 int			ft_print_syserr(int err_nbr, int exit_status);
 int			ft_atoui(char *str);
+void		free_table(t_table **table);
+void		free_n_philo(t_philo **philo, int nbr);
+void		free_philo(t_philo *philo);
 
 #endif
