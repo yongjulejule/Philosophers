@@ -6,7 +6,7 @@
 #    By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/12 20:27:28 by yongjule          #+#    #+#              #
-#    Updated: 2021/11/21 11:34:09 by yongjule         ###   ########.fr        #
+#    Updated: 2021/11/21 14:41:05 by yongjule         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,8 +33,9 @@ SRCS			=	$(addprefix $(SRCS_DIR), \
 					handle_error.c\
 					main.c\
 					gen_philosophers.c\
-					philo_lifecycle.c\
 					free_structure.c\
+					sleep_and_think.c\
+					eat.c\
 				)
 
 OBJS			=	${SRCS:%.c=%.o}

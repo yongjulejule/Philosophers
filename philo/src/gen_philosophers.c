@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 09:32:43 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/21 14:27:47 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/21 15:04:26 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,22 @@
 static void	*born_philo(void *arg)
 {
 	t_philo	*philo;
+	int		cnt;
 
 	philo = (t_philo *)arg;
+	cnt = 0;
 	if (philo->ph_idx % 2 == 0
 		|| philo->ph_idx == philo->table->philo_life[number_of_philosopers])
 		usleep(100);
 	while (philo->table->alive)
 	{
 		if (philo->table->philo_life[number_of_philosopers] != 1)
+		{
 			go_to_eat(philo, philo->table->clock);
+			cnt++;
+		}
+		else
+			go_to_eat_alone(philo, philo->table->clock);
 		if (philo->table->alive)
 			go_to_sleep(philo, philo->table->clock);
 		if (philo->table->alive)
@@ -45,14 +52,14 @@ static void	free_memory(t_philo *philo, pthread_t *tid)
 	free_n_philo(&philo, cnt);
 }
 
-static t_bool	exit_philosopher(t_philo *philo, pthread_t *tid)
+static t_bool	exit_philosopher(t_philo *philo, pthread_t *tid, int cnt)
 {
 	int	idx;
 	int	err;
 
 	idx = 0;
 	err = 0;
-	while (idx < philo->table->philo_life[number_of_philosopers])
+	while (idx < cnt)
 	{
 		err = pthread_join(tid[idx++], NULL);
 		if (err)
@@ -68,25 +75,28 @@ static t_bool	exit_philosopher(t_philo *philo, pthread_t *tid)
 static void	check_status(t_philo *philo)
 {
 	int		idx;
-	t_table	*table;
+	int		cnt;
 
 	idx = 0;
-	table = philo->table;
+	cnt = philo->table->philo_life[number_of_philosopers];
 	while (philo->table->alive)
 	{
-		if (philo[idx].status != eating && get_time_gap(philo[idx].hunger)
-			>= table->philo_life[time_to_die])
+		if ((philo[idx].status != eating && get_time_gap(philo[idx].hunger)
+				>= philo->table->philo_life[time_to_die])
+			|| (philo[cnt - idx - 1].status != eating
+				&& get_time_gap(philo[cnt - idx - 1].hunger)
+				>= philo->table->philo_life[time_to_die]))
 		{
 			pthread_mutex_lock(&philo->table->mutex);
-			if (table->alive)
+			if (philo->table->alive)
 				printf("\033[1;31m%ldms philosopher %d is died \033[0m \n",
-					get_time_gap(table->clock), philo[idx].ph_idx);
-			table->alive = false;
+					get_time_gap(philo->table->clock), philo[idx].ph_idx);
+			philo->table->alive = false;
 			pthread_mutex_unlock(&philo->table->mutex);
 			return ;
 		}
 		idx++;
-		if (idx >= table->philo_life[number_of_philosopers])
+		if (idx >= cnt)
 			idx = 0;
 	}
 }
@@ -115,7 +125,7 @@ t_bool	philo_main(t_philo *philo)
 		}
 	}
 	check_status(philo);
-	if (!exit_philosopher(philo, tid))
+	if (!exit_philosopher(philo, tid, idx))
 		return (false);
 	return (true);
 }

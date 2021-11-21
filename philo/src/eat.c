@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_lifecycle.c                                  :+:      :+:    :+:   */
+/*   eat.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 09:44:25 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/21 12:09:10 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/21 14:42:00 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,38 +78,10 @@ void	go_to_eat(t_philo *philo, const time_t origin)
 	pthread_mutex_unlock(philo->right);
 }
 
-void	go_to_sleep(t_philo *philo, const time_t origin)
+void	go_to_eat_alone(t_philo *philo, const time_t origin)
 {
-	time_t	now;
-
-	now = get_time();
-	philo->status = sleeping;
-	pthread_mutex_lock(&philo->table->mutex);
-	if (philo->table->alive)
-		printf("%ldms philosopher %d is sleeping\n", get_time_gap(origin),
-			philo->ph_idx);
-	else
-	{
-		pthread_mutex_unlock(&philo->table->mutex);
-		return ;
-	}	
-	pthread_mutex_unlock(&philo->table->mutex);
-	while (philo->table->alive && get_time_gap(now)
-		< philo->table->philo_life[time_to_sleep])
-		usleep(500);
-}
-
-void	go_to_think(t_philo *philo, const time_t origin)
-{
-	philo->status = thinking;
-	pthread_mutex_lock(&philo->table->mutex);
-	if (philo->table->alive)
-		printf("%ldms philosopher %d is thinking\n", get_time_gap(origin),
-			philo->ph_idx);
-	else
-	{
-		pthread_mutex_unlock(&philo->table->mutex);
-		return ;
-	}	
-	pthread_mutex_unlock(&philo->table->mutex);
+	printf("%ldms philosopher %d has take a fork\n",
+		get_time_gap(origin), philo->ph_idx);
+	while (philo->table->alive)
+		;
 }
