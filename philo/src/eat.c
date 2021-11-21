@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 09:44:25 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/21 14:42:00 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/21 16:33:51 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	have_meal(int *fork_idx, t_philo *philo, const time_t origin)
 		pthread_mutex_unlock(&philo->table->mutex);
 		return ;
 	}	
+	philo->hunger = get_time();
 	pthread_mutex_unlock(&philo->table->mutex);
 	while (get_time_gap(now) < philo->table->philo_life[time_to_eat])
 	{
@@ -35,7 +36,6 @@ void	have_meal(int *fork_idx, t_philo *philo, const time_t origin)
 		else
 			return ;
 	}
-	philo->hunger = get_time();
 	philo->table->forks[fork_idx[0]] = 0;
 	philo->table->forks[fork_idx[1]] = 0;
 }
@@ -45,11 +45,11 @@ void	take_fork(int *fork_idx, t_philo *philo, const time_t origin)
 	philo->table->forks[fork_idx[0]] = 1;
 	pthread_mutex_lock(&philo->table->mutex);
 	if (philo->table->alive)
-		printf("%ldms philosopher %d has take a fork\n",
+		printf("%ldms philosopher %d has taken a fork\n",
 			get_time_gap(origin), philo->ph_idx);
 	philo->table->forks[fork_idx[1]] = 1;
 	if (philo->table->alive)
-		printf("%ldms philosopher %d has take a fork\n",
+		printf("%ldms philosopher %d has taken a fork\n",
 			get_time_gap(origin), philo->ph_idx);
 	else
 	{
@@ -84,4 +84,14 @@ void	go_to_eat_alone(t_philo *philo, const time_t origin)
 		get_time_gap(origin), philo->ph_idx);
 	while (philo->table->alive)
 		;
+}
+
+void	check_eat_count(t_philo *philo, int cnt)
+{
+	if (philo->table->philo_life[each_philosoper_must_eat] == cnt)
+	{
+		pthread_mutex_lock(&philo->table->mutex);
+		philo->table->eat_cnt++;
+		pthread_mutex_unlock(&philo->table->mutex);
+	}
 }

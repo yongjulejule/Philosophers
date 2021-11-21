@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 12:38:17 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/21 14:49:50 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/21 15:57:02 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef enum e_life
 	time_to_die,
 	time_to_eat,
 	time_to_sleep,
-	number_of_times_each_philosoper_must_eat,
+	each_philosoper_must_eat,
 }	t_life;
 
 typedef enum e_status
@@ -67,6 +67,7 @@ typedef struct s_table
 {
 	time_t			clock;
 	t_bool			alive;
+	int				eat_cnt;	
 	int				*philo_life;
 	int				*forks;
 	pthread_mutex_t	mutex;
@@ -96,6 +97,7 @@ t_bool		get_info(int argc, char *argv[], t_philo **philo);
 t_bool		philo_main(t_philo *philo);
 void		go_to_eat(t_philo *philo, const time_t origin);
 void		go_to_eat_alone(t_philo *philo, const time_t origin);
+void		check_eat_count(t_philo *philo, int cnt);
 void		go_to_sleep(t_philo *philo, const time_t origin);
 void		go_to_think(t_philo *philo, const time_t origin);
 time_t		get_time_gap(const time_t origin);
@@ -111,5 +113,6 @@ int			ft_atoui(char *str);
 void		free_table(t_table **table);
 void		free_n_philo(t_philo **philo, int nbr);
 void		free_philo(t_philo *philo);
+void		free_memory(t_philo *philo, pthread_t *tid);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 16:43:47 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/21 12:06:38 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/21 17:17:32 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	*get_philo_life(int argc, char **argv)
 		if (philo_life[idx] == ERR)
 		{
 			free(philo_life);
-			is_err("Arguments is out of range", STDERR_FILENO, 0);
+			is_err("Arguments is out of range\n", STDERR_FILENO, 0);
 			return (NULL);
 		}
 		idx++;
@@ -35,7 +35,7 @@ static int	*get_philo_life(int argc, char **argv)
 	if (philo_life[number_of_philosopers] == 0)
 	{
 		free(philo_life);
-		is_err("At least one Philosopher need", STDERR_FILENO, 0);
+		is_err("At least one Philosopher need\n", STDERR_FILENO, 0);
 		return (NULL);
 	}
 	return (philo_life);
@@ -85,8 +85,6 @@ static t_bool	initiate_each_philo(t_philo *philo, t_table *table, int ph_nbr)
 	return (true);
 }
 
-/* TODO : Free all array in while if fail */
-
 static t_philo	*get_philo_data(t_table *table)
 {
 	t_philo	*philo;
@@ -111,8 +109,6 @@ static t_philo	*get_philo_data(t_table *table)
 			% (philo->table->philo_life[number_of_philosopers])].right[0];
 	return (philo);
 }
-
-/* TODO : Free if fail for all cases */
 
 t_bool	get_info(int argc, char *argv[], t_philo **philo)
 {

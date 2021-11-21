@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 11:04:10 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/21 14:27:55 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/21 15:15:38 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,14 @@ void	free_n_philo(t_philo **philo, int idx)
 		free_philo(&philo[0][idx]);
 	free(*philo);
 	*philo = NULL;
+}
+
+void	free_memory(t_philo *philo, pthread_t *tid)
+{
+	int	cnt;
+
+	cnt = philo->table->philo_life[number_of_philosopers];
+	free(tid);
+	free_table(&philo->table);
+	free_n_philo(&philo, cnt);
 }
