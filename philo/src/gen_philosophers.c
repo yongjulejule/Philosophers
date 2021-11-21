@@ -12,7 +12,6 @@
 
 #include "philosophers.h"
 
-/* FIXME: DO WE NEED HADNLE ERROR? */
 static void	*born_philo(void *arg)
 {
 	t_philo	*philo;

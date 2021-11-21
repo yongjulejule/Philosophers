@@ -6,13 +6,11 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 12:37:06 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/21 17:17:37 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/21 17:54:17 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-
-/* TODO : Free before exit program, handle mutex err, destroy mutex */
 
 int	main(int argc, char **argv)
 {
