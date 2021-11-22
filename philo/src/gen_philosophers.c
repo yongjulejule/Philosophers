@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 09:32:43 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/22 12:16:59 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/22 12:23:27 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,7 @@ static t_bool	exit_philosopher(t_philo *philo, pthread_t *tid, int cnt)
 	{
 		err = pthread_join(tid[idx++], NULL);
 		if (err)
-		{
-			ft_print_syserr(err, EXIT_FAILURE);
-			return (false);
-		}
+			return (ft_print_syserr(err, false));
 	}
 	free_memory(philo, tid);
 	return (true);
