@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 09:32:43 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/21 19:09:30 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/22 12:16:59 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	*born_philo(void *arg)
 	cnt = 0;
 	if (philo->ph_idx % 2 == 0
 		|| philo->ph_idx == philo->table->philo_life[number_of_philosopers])
-		usleep(100);
+		usleep(500);
 	while (philo->table->alive)
 	{
 		if (philo->table->philo_life[number_of_philosopers] != 1)
@@ -82,6 +82,7 @@ static void	check_status(t_philo *philo)
 	ate = philo->table->philo_life[each_philosoper_must_eat];
 	while (philo->table->alive && (cnt > philo->table->eat_cnt))
 	{
+		usleep(100);
 		if ((philo[idx].status != eating && get_time_gap(philo[idx].hunger)
 				>= philo->table->philo_life[time_to_die]))
 			return (dead(philo, idx));

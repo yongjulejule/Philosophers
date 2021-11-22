@@ -6,13 +6,13 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 09:44:25 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/21 17:54:41 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/22 12:18:23 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	have_meal(int *fork_idx, t_philo *philo, const time_t origin)
+static void	have_meal(t_philo *philo, const time_t origin)
 {
 	time_t	now;
 
@@ -36,44 +36,40 @@ void	have_meal(int *fork_idx, t_philo *philo, const time_t origin)
 		else
 			return ;
 	}
-	philo->table->forks[fork_idx[0]] = 0;
-	philo->table->forks[fork_idx[1]] = 0;
 }
 
-void	take_fork(int *fork_idx, t_philo *philo, const time_t origin)
+static t_bool	get_forks(t_philo *philo, const time_t origin, int status)
 {
-	philo->table->forks[fork_idx[0]] = 1;
-	pthread_mutex_lock(&philo->table->mutex);
 	if (philo->table->alive)
+	{
 		printf("%ldms philosopher %d has taken a fork\n",
 			get_time_gap(origin), philo->ph_idx);
-	philo->table->forks[fork_idx[1]] = 1;
-	if (philo->table->alive)
-		printf("%ldms philosopher %d has taken a fork\n",
-			get_time_gap(origin), philo->ph_idx);
+		pthread_mutex_unlock(&philo->table->mutex);
+		return (true);
+	}
 	else
 	{
+		pthread_mutex_unlock(philo->left);
 		pthread_mutex_unlock(&philo->table->mutex);
-		return ;
-	}	
-	pthread_mutex_unlock(&philo->table->mutex);
+		if (status == 1)
+			pthread_mutex_unlock(philo->right);
+		return (false);
+	}
 }
 
 void	go_to_eat(t_philo *philo, const time_t origin)
 {
-	int		fork_idx[2];
-
-	fork_idx[LEFT] = philo->ph_idx - 1;
-	if (philo->ph_idx == philo->table->philo_life[number_of_philosopers])
-		fork_idx[RIGHT] = 0;
-	else
-		fork_idx[RIGHT] = philo->ph_idx;
 	pthread_mutex_lock(philo->left);
+	pthread_mutex_lock(&philo->table->mutex);
+	if (!get_forks(philo, origin, LEFT))
+		return ;
 	pthread_mutex_lock(philo->right);
+	pthread_mutex_lock(&philo->table->mutex);
+	if (!get_forks(philo, origin, RIGHT))
+		return ;
+	pthread_mutex_unlock(&philo->table->mutex);
 	if (philo->table->alive)
-		take_fork(fork_idx, philo, origin);
-	if (philo->table->alive)
-		have_meal(fork_idx, philo, origin);
+		have_meal(philo, origin);
 	pthread_mutex_unlock(philo->left);
 	pthread_mutex_unlock(philo->right);
 }

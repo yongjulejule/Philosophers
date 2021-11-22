@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 16:43:47 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/21 17:17:32 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/22 12:11:46 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	*get_philo_life(int argc, char **argv)
 	return (philo_life);
 }
 
-static t_table	*get_table_info(int *philo_life, int *forks)
+static t_table	*get_table_info(int *philo_life)
 {
 	t_table	*table;
 	int		err;
@@ -50,12 +50,10 @@ static t_table	*get_table_info(int *philo_life, int *forks)
 	if (!table)
 	{
 		free(philo_life);
-		free(forks);
 		free(table);
 		return (NULL);
 	}
 	table->philo_life = philo_life;
-	table->forks = forks;
 	table->alive = true;
 	err = pthread_mutex_init(&table->mutex, NULL);
 	if (err)
@@ -113,19 +111,12 @@ static t_philo	*get_philo_data(t_table *table)
 t_bool	get_info(int argc, char *argv[], t_philo **philo)
 {
 	int		*philo_life;
-	int		*forks;
 	t_table	*table;
 
 	philo_life = get_philo_life(argc, argv);
 	if (philo_life == NULL)
 		return (false);
-	forks = ft_alloc(philo_life[number_of_philosopers], sizeof(int), 0);
-	if (!forks)
-	{
-		free(philo_life);
-		return (false);
-	}
-	table = get_table_info(philo_life, forks);
+	table = get_table_info(philo_life);
 	if (!table)
 		return (false);
 	*philo = get_philo_data(table);

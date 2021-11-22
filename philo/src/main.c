@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 12:37:06 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/21 17:54:17 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/22 11:41:33 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,5 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	if (!philo_main(philo))
 		return (EXIT_FAILURE);
-	philo = NULL;
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 11:04:10 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/21 15:15:38 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/22 12:11:57 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	free_table(t_table **table)
 
 	to_free = *table;
 	free(to_free->philo_life);
-	free(to_free->forks);
 	err = pthread_mutex_destroy(&to_free->mutex);
 	if (err)
 		ft_print_syserr(err, false);
