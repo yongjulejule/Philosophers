@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 16:43:47 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/22 12:11:46 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/24 11:47:16 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	*get_philo_life(int argc, char **argv)
 	while (idx < argc - 1)
 	{
 		philo_life[idx] = ft_atoui(argv[idx + 1]);
-		if (philo_life[idx] == ERR)
+		if (philo_life[idx] == ERR || philo_life[0] > 100000)
 		{
 			free(philo_life);
 			is_err("Arguments is out of range\n", STDERR_FILENO, 0);

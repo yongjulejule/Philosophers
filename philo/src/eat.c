@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 09:44:25 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/22 12:18:23 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/24 11:33:27 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ static void	have_meal(t_philo *philo, const time_t origin)
 		pthread_mutex_unlock(&philo->table->mutex);
 		return ;
 	}
-	philo->hunger = get_time();
 	pthread_mutex_unlock(&philo->table->mutex);
+	philo->hunger = get_time();
 	while (get_time_gap(now) < philo->table->philo_life[time_to_eat])
 	{
 		if (philo->table->alive)
@@ -51,7 +51,7 @@ static t_bool	get_forks(t_philo *philo, const time_t origin, int status)
 	{
 		pthread_mutex_unlock(philo->left);
 		pthread_mutex_unlock(&philo->table->mutex);
-		if (status == 1)
+		if (status == RIGHT)
 			pthread_mutex_unlock(philo->right);
 		return (false);
 	}
