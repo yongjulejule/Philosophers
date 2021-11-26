@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 12:38:17 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/21 15:57:02 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/26 11:14:15 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ t_bool		get_info(int argc, char *argv[], t_philo **philo);
 
 t_bool		philo_main(t_philo *philo);
 void		go_to_eat(t_philo *philo, const time_t origin);
-void		go_to_eat_alone(t_philo *philo, const time_t origin);
+void		*go_to_eat_alone(void *arg);
 void		check_eat_count(t_philo *philo, int cnt);
 void		go_to_sleep(t_philo *philo, const time_t origin);
 void		go_to_think(t_philo *philo, const time_t origin);

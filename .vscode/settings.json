@@ -11,7 +11,10 @@
 		"philosophers.h": "c",
 		"time.h": "c",
 		"_time_t.h": "c",
-		"_suseconds_t.h": "c"
+		"_suseconds_t.h": "c",
+		"thread_info.h": "c",
+		"dyld_kernel.h": "c",
+		"thread_act.h": "c"
 	},
 	"C_Cpp.errorSquiggles": "Enabled"
 }

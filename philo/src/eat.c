@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 09:44:25 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/24 11:33:27 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/26 11:17:10 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,16 @@ void	go_to_eat(t_philo *philo, const time_t origin)
 	pthread_mutex_unlock(philo->right);
 }
 
-void	go_to_eat_alone(t_philo *philo, const time_t origin)
+void	*go_to_eat_alone(void *arg)
 {
+	t_philo	*philo;
+
+	philo = (t_philo *)arg;
 	printf("%ldms philosopher %d has take a fork\n",
-		get_time_gap(origin), philo->ph_idx);
+		get_time_gap(philo->table->clock), philo->ph_idx);
 	while (philo->table->alive)
 		;
+	return (arg);
 }
 
 void	check_eat_count(t_philo *philo, int cnt)

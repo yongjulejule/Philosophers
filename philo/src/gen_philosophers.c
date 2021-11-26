@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 09:32:43 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/25 10:53:55 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/26 15:13:15 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ static void	*born_philo(void *arg)
 		usleep(100 + (philo->table->philo_life[number_of_philosopers] * 20));
 	while (philo->table->alive)
 	{
-		if (philo->table->philo_life[number_of_philosopers] != 1)
+		// if (philo->table->philo_life[number_of_philosopers] != 1)
 			go_to_eat(philo, philo->table->clock);
-		else
-			go_to_eat_alone(philo, philo->table->clock);
+		// else
+		// 	go_to_eat_alone(philo);
 		if (philo->table->philo_life[each_philosoper_must_eat] != -1)
 		{
 			cnt++;
@@ -102,6 +102,16 @@ t_bool	philo_main(t_philo *philo)
 		return (false);
 	philo->table->clock = get_time();
 	idx = -1;
+	if (philo->table->philo_life[number_of_philosopers] == 1)
+	{
+		idx++;
+		err = pthread_create(&tid[idx], NULL, go_to_eat_alone, &philo[idx]);
+		if (err)
+		{
+			philo->table->alive = false;
+			ft_print_syserr(err, EXIT_FAILURE);
+		}
+	}
 	while (++idx < philo->table->philo_life[number_of_philosopers])
 	{
 		philo[idx].hunger = philo->table->clock;
