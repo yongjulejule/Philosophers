@@ -6,13 +6,13 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 09:32:43 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/26 15:13:15 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/26 16:16:39 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-static void	*born_philo(void *arg)
+void	*born_philo(void *arg)
 {
 	t_philo	*philo;
 	int		cnt;
@@ -21,27 +21,22 @@ static void	*born_philo(void *arg)
 	cnt = 0;
 	if (philo->ph_idx % 2 == 0
 		|| philo->ph_idx == philo->table->philo_life[number_of_philosopers])
-		usleep(100 + (philo->table->philo_life[number_of_philosopers] * 20));
+		usleep((philo->table->philo_life[number_of_philosopers] * 100));
 	while (philo->table->alive)
 	{
-		// if (philo->table->philo_life[number_of_philosopers] != 1)
-			go_to_eat(philo, philo->table->clock);
-		// else
-		// 	go_to_eat_alone(philo);
+		go_to_eat(philo, philo->table->clock);
 		if (philo->table->philo_life[each_philosoper_must_eat] != -1)
 		{
 			cnt++;
 			check_eat_count(philo, cnt);
 		}
-		if (philo->table->alive)
-			go_to_sleep(philo, philo->table->clock);
-		if (philo->table->alive)
-			go_to_think(philo, philo->table->clock);
+		go_to_sleep(philo, philo->table->clock);
+		go_to_think(philo, philo->table->clock);
 	}
 	return (arg);
 }
 
-static t_bool	exit_philosopher(t_philo *philo, pthread_t *tid, int cnt)
+t_bool	exit_philosopher(t_philo *philo, pthread_t *tid, int cnt)
 {
 	int	idx;
 	int	err;
@@ -68,7 +63,7 @@ static void	dead(t_philo *philo, int idx)
 	pthread_mutex_unlock(&philo->table->mutex);
 }
 
-static void	check_status(t_philo *philo)
+void	check_status(t_philo *philo)
 {
 	int		idx;
 	int		cnt;
@@ -90,41 +85,17 @@ static void	check_status(t_philo *philo)
 	philo->table->alive = false;
 }
 
-t_bool	philo_main(t_philo *philo)
+t_bool	gen_philosopher(pthread_t *tid, void *(fp(void *arg)), t_philo *philo)
 {
-	int				err;
-	pthread_t		*tid;
-	int				idx;
+	int	err;
 
-	tid = ft_alloc(philo->table->philo_life[number_of_philosopers],
-			sizeof(int), 0);
-	if (!tid)
-		return (false);
-	philo->table->clock = get_time();
-	idx = -1;
-	if (philo->table->philo_life[number_of_philosopers] == 1)
+	philo->hunger = philo->table->clock;
+	err = pthread_create(tid, NULL, fp, philo);
+	if (err)
 	{
-		idx++;
-		err = pthread_create(&tid[idx], NULL, go_to_eat_alone, &philo[idx]);
-		if (err)
-		{
-			philo->table->alive = false;
-			ft_print_syserr(err, EXIT_FAILURE);
-		}
-	}
-	while (++idx < philo->table->philo_life[number_of_philosopers])
-	{
-		philo[idx].hunger = philo->table->clock;
-		err = pthread_create(&tid[idx], NULL, born_philo, &philo[idx]);
-		if (err)
-		{
-			philo->table->alive = false;
-			ft_print_syserr(err, EXIT_FAILURE);
-			break ;
-		}
-	}
-	check_status(philo);
-	if (!exit_philosopher(philo, tid, idx))
+		philo->table->alive = false;
+		ft_print_syserr(err, EXIT_FAILURE);
 		return (false);
+	}
 	return (true);
 }

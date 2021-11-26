@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 12:38:17 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/26 11:14:15 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/26 15:56:00 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ t_bool		get_info(int argc, char *argv[], t_philo **philo);
 
 /* Philosopher Life */
 
+t_bool		gen_philosopher(pthread_t *tid,
+				void *(fp(void *arg)), t_philo *philo);
 t_bool		philo_main(t_philo *philo);
 void		go_to_eat(t_philo *philo, const time_t origin);
 void		*go_to_eat_alone(void *arg);
@@ -102,6 +104,9 @@ void		go_to_sleep(t_philo *philo, const time_t origin);
 void		go_to_think(t_philo *philo, const time_t origin);
 time_t		get_time_gap(const time_t origin);
 time_t		get_time(void);
+void		check_status(t_philo *philo);
+void		*born_philo(void *arg);
+t_bool		exit_philosopher(t_philo *philo, pthread_t *tid, int cnt);
 
 /* Utils */
 
