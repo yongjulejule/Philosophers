@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 09:32:43 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/26 16:16:39 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/27 10:00:59 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ void	check_status(t_philo *philo)
 	idx = 0;
 	cnt = philo->table->philo_life[number_of_philosopers];
 	ate = philo->table->philo_life[each_philosoper_must_eat];
+	if (!philo->table->philo_life[each_philosoper_must_eat])
+		philo->table->alive = false;
 	while (philo->table->alive && (cnt > philo->table->eat_cnt))
 	{
 		usleep(50);
