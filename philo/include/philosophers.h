@@ -6,7 +6,7 @@
 /*   By: yongjule <yongjule@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 12:38:17 by yongjule          #+#    #+#             */
-/*   Updated: 2021/11/26 15:56:00 by yongjule         ###   ########.fr       */
+/*   Updated: 2021/11/27 14:20:06 by yongjule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,8 @@ typedef struct s_table
 {
 	time_t			clock;
 	t_bool			alive;
-	int				eat_cnt;	
+	int				eat_cnt;
 	int				*philo_life;
-	int				*forks;
 	pthread_mutex_t	mutex;
 }	t_table;
 
