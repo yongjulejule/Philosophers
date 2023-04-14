@@ -1,5 +1,5 @@
 # Philosophers
-Let's go to see how [philosophers](https://cdn.intra.42.fr/pdf/pdf/26272/en.subject.pdf) gonna die
+Let's go to see how philosophers gonna die
 
 # PPT to explain basic concepts
 ![img](https://github.com/yongjulejule/Philosophers/blob/master/asset/Philosophers.001.jpeg)
